@@ -12,7 +12,7 @@
                 &nbsp; &nbsp;
                 <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
             </div>
-            <canvas id="the-canvas"></canvas>
+            <canvas id="the-canvas">Loading...</canvas>
         </div>
     </div>
 
