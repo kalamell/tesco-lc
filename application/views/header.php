@@ -122,7 +122,7 @@
 		}
 		#footer{
 			height: 60px;
-			margin-top: -27px;
+			margin-top: -100px;
 			padding: 10px;
 			background: #019b79;
 		}
