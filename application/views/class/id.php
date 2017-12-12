@@ -109,9 +109,8 @@
         // Using promise to fetch the page
         pdfDoc.getPage(num).then(function(page) {
             var viewport = page.getViewport(scale);
-            canvas.height = viewport.height;
-            //canvas.width = viewport.width;
-            canvas.width = 900;
+            canvas.height = viewport.height + 500;
+            canvas.width = viewport.width + 500;
 
             // Render PDF page into canvas context
             var renderContext = {
