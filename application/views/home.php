@@ -31,6 +31,10 @@
 		var welcome = JSON.parse(window.localStorage.getItem('welcome'));
 		$("div.list-group").html('<a href="#" class="list-group-item">Loading...</a>');
 
+		if (data == null) {
+			alert('null');
+		}
+
 		setTimeout(function() {
 			$("div.list-group").html('');
 			$.each(data.format, function(key, value) {
