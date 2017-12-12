@@ -6,11 +6,11 @@
         </div>
 
         <div id="pdf" style='display: flex; overflow: scroll;'>
-            <div>
-                <button id="prev">Previous</button>
-                <button id="next">Next</button>
-                &nbsp; &nbsp;
-                <span style='font-size: 20px; color: #fff;'>Page: <span style='font-size: 20px; color: #fff;' id="page_num"></span> / <span style='font-size: 20px; color: #fff;' id="page_count"></span></span>
+            <div class='pull-left'>
+                <button id="prev" class='btn btn-sm btn-info'>ก่อนหน้า</button>
+                <button id="next" class='btn btn-sm btn-info'>ถัดไป</button>
+                <br>
+                <span style='font-size: 20px; color: #fff;'>หน้าที่ : <span style='font-size: 20px; color: #fff;' id="page_num"></span> / <span style='font-size: 20px; color: #fff;' id="page_count"></span></span>
             </div>
             <canvas id="the-canvas"><h1 class='color: #fff; font-size: 25px;'>Loading...</h1></canvas>
         </div>
@@ -80,7 +80,7 @@
         // header on that server.
         var url = documents[0].file[0].file;
 
-        console.log(url);
+        
 
         // The workerSrc property shall be specified.
         PDFJS.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
