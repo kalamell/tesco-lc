@@ -163,6 +163,12 @@
             window.localStorage.removeItem('token');
             window.localStorage.removeItem('data');
             window.localStorage.removeItem('welcome');
+
+            $("#login-username").on('focus', function() {
+                $("a.lnk-forget").hide();
+                $("#btn-login").prop('disabled', true);
+                
+            });
                             
 
             $("a.lnk-forget").hide();
@@ -313,11 +319,15 @@
                         $("#btn-login3").prop('disabled', false);
                         $("#btn-login3").html('Login');   
                     } else {
+                        console.log(res);
+
                         $("#btn-login3").html('กำลังเข้าสู่ระบบ');    
                         $.post('<?php echo site_url('auth/setaccount');?>', {
                             'user_id': res.user_id,
+                            'employee_id': userid,
                             'firstname': res.firstname,
                             'lastname': res.lastname,
+                            'fullname': res.user.usage,
                             'token': res.token
                         }, function() {
                             window.localStorage.setItem('token', JSON.stringify(res.token));
@@ -341,6 +351,16 @@
 
             $("#btn-login").prop('disabled', true);
             $("#btn-login").html('กำลังดำเนินการ');
+
+            var id = $("#login-username").val();
+            var userid = '764' + id;
+            var regId = /(isobar|admin)/g;
+            
+            if (id.match(regId)) {
+                var userid = id;
+            }
+
+
 
             $.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/login',
@@ -373,11 +393,14 @@
                             }, 2000);
                         }
                     } else {
+                        console.log(res);
                         $("#btn-login").html('กำลังเข้าสู่ระบบ');    
                         $.post('<?php echo site_url('auth/setaccount');?>', {
                             'user_id': res.user_id,
+                            'employee_id': userid,
                             'firstname': res.firstname,
                             'lastname': res.lastname,
+                            'fullname': res.user.usage,
                             'token': res.token
                         }, function() {
                             window.localStorage.setItem('token', JSON.stringify(res.token));

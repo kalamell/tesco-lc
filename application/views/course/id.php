@@ -26,8 +26,10 @@
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-window-close"></i> ปิด</button>
+                <button type="button" class="btn btn-primary" id="create_single"><i class="fa fa-user"></i> ลงทะเบียนเรียนเดี่ยว</button>
+                <button type="button" class="btn btn-primary" id="create_group"><i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม</button>
+                <button type="button" style="display: none;" class="btn btn-primary" id="save_group"><i class="fa fa-floppy-o"></i> บันทึก</button>
             </div>
             </div>
         </div>
@@ -50,8 +52,7 @@
                                 $("li.active").text(valdep.title);
                                 
                                 $.each(valdep.course, function(key_course, val_course) {
-                                    console.log(val_course);
-                                    var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + val_course.id;
+                                    var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + valdep.id + '/' + val_course.id;
                                     var html =  '<div class="col-md-2" id="c' + val_course.id +'">';
                                     html += '<a data-toggle="modal" data-remote="false" data-target="#myModal" href="' + href + '" class="book">';
                                     html += '<p>' + val_course.name + '  </p>';
@@ -67,8 +68,21 @@
         });
 
         $("#myModal").on('show.bs.modal', function(e) {
-            e.preventDefault();
+           // e.preventDefault();
             var link = $(e.relatedTarget);
+            $("#save_group").hide();
+            $("#save_group").prop('disabled', false);
+            $("#save_group").html('<i class="fa fa-floppy-o"></i> บันทึก');
+
+            $("#create_single").show();
+            $("#create_group").show();
+            $("#create_single").prop('disabled', false);
+            $("#create_single").html('<i class="fa fa-user"></i> ลงทะเบียนเรียนเดี่ยว');
+            $("#create_group").prop('disabled', false);
+            $("#create_group").html('<i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม');
+
+            $(".modal-body").html('Loading...');
+
             $(this).find('.modal-body').load(link.attr('href'));
         })
     </script>

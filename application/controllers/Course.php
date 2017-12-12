@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Course extends Base {
 	
-    public function id($format_id, $sub, $couse_id) 
+    public function id($format_id, $sub, $dep_id) 
     {
         $this->render('course/id');
     }

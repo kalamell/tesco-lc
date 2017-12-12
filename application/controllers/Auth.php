@@ -97,6 +97,8 @@ class Auth extends CI_Controller
         if ($this->form_validation->run()) {
             $this->session->set_userdata(array(
                 'id' => $this->input->post('user_id'),
+                'employee_id' => $this->input->post('employee_id'),
+                'fullname' => $this->input->post('fullname'),
                 'name' => $this->input->post('firstname').' '.$this->input->post('lastname'),
                 'token' => $this->input->post('token')
             ));
