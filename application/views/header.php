@@ -113,6 +113,20 @@
 		text-shadow: 0px 0px 0px;
 	}
 
+	<?php if ($this->uri->segment(1) == 'classroom' && $this->uri->segment(2)=='id'):?> 
+	body,html{
+		height:100%;
+		}
+		.container{
+		min-height:85%;
+		}
+		#footer{
+			height: 60px;
+			margin-top: -27px;
+			padding: 10px;
+			background: #019b79;
+		}
+	<?php endif;?>
 
 	</style>
 </head>

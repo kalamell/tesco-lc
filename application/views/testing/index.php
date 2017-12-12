@@ -95,11 +95,16 @@
 
         }
 
-         $("#myModal").on('show.bs.modal', function(e) {
+        $("#myModal").on('show.bs.modal', function(e) {
            // e.preventDefault();
             var link = $(e.relatedTarget);
             $(".modal-body").html('Loading...');
             $(this).find('.modal-body').load(link.attr('href'));
+        });
+
+        $("#gototesting").on('click', function() {
+            $(this).prop('disabled', true);
+            $(this).html('กรุณารอสักครู่...');
         })
 
     </script>

@@ -319,8 +319,7 @@
                         $("#btn-login3").prop('disabled', false);
                         $("#btn-login3").html('Login');   
                     } else {
-                        console.log(res);
-
+                        //console.log(res);
                         $("#btn-login3").html('กำลังเข้าสู่ระบบ');    
                         $.post('<?php echo site_url('auth/setaccount');?>', {
                             'user_id': res.user_id,
@@ -393,7 +392,7 @@
                             }, 2000);
                         }
                     } else {
-                        console.log(res);
+                        //console.log(res);
                         $("#btn-login").html('กำลังเข้าสู่ระบบ');    
                         $.post('<?php echo site_url('auth/setaccount');?>', {
                             'user_id': res.user_id,

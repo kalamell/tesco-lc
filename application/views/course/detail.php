@@ -81,11 +81,11 @@
            
             var users = [user_id];
 
-
+            
             $("#create_single").prop('disabled', true);
             $("#create_single").html('กำลังดำเนินการรอสักครู่');   
 
-            $.ajax({
+            /*$.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -101,7 +101,11 @@
                     $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป');   
                     console.log(res);
                 } 
-            })
+            })*/
+            setTimeout(function() {
+                $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
+                top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6).'/0001');?>';
+            }, 1000);
 
 
         })
@@ -119,7 +123,7 @@
         $("#save_group").on('click', function() {
             $("#save_group").prop('disabled', true);
             $("#save_group").html('กำลังดำเนินการรอสักครู่');   
-
+            /*
             $.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
                 headers: {
@@ -136,7 +140,12 @@
                     $("#save_group").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป');   
                     console.log(res);
                 } 
-            })
+            })*/
+            setTimeout(function() {
+                $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
+                top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6).'/0001');?>';
+            }, 1000);
+
         })
 
         $("#emp_id").on('keypress', function(e) {
@@ -180,9 +189,6 @@
                             setTimeout(function() {
                                 $(html).appendTo($("tbody#data-group"));
                             }, 0);
-
-                            console.log(users_group);
-
                         }
                     } 
                 })

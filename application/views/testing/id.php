@@ -22,6 +22,24 @@
 
     </div>  
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                <h4 class="modal-title" id="myModalLabel">ตรวจคำตอบ</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <a href="<?php echo site_url('testing');?>" type="button" class="btn btn-primary" id=""><i class="fa fa-home"></i> กลับหน้าแรก</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
@@ -33,10 +51,13 @@
     $("#page").html(page);
     var inx = 0;
     var testing_data = [];
+    var target_percentage = 0;
 
     $.each(testing.testing, function(key, val) {
         if (val.id == <?php echo $this->uri->segment(3);?>) {
+            console.log(val);
 
+            target_percentage = val.target_percentage;
 
             testing_data = val.question;            
             
@@ -48,9 +69,9 @@
             total_page = val.question.length;
             $("#total").html(total_page);
             $("#title").html(val.title);
-            var title = val.question[key].description;
-            var type = val.question[key].type;
-            var cover = val.question[key].cover;
+            var title = val.question[0].description;
+            var type = val.question[0].type;
+            var cover = val.question[0].cover;
 
             $("#answer").append('<h3 class="title-choice">' + title + '</h3>');
 
@@ -58,16 +79,15 @@
                 $("#answer").append('<p><img class="img-responsive" src="' + cover + '" /></p>');
             }
 
+            console.log(type);
+
             if (type == 'abcd') {
-                abcd(val.question[key].answer);
+                abcd(val.question[0].answer);
             }
 
-            /*
-            $.each(val.question[key].answer, function(key_test, val_test) {
-
-                return false;
-            });
-            */
+            if (type == 'yes/no') {
+                yesno(val.question[0].correct_answer);
+            }
 
             return false;
         }
@@ -78,10 +98,38 @@
         var html = '<ol class="abcd">';
         $.each(answer, function(key, val) {
             html +='<li>';
-            html +='<label><input type="radio" name="choice' + key +'" value="' + val.is_correct + '"/> ' + val.text;
-            html +='</label>';
+            html +='<label style="cursor: pointer"><input type="radio" name="choice" value="' + val.is_correct + '"/> ' + val.text;
+            html +=' >> ' + val.is_correct + '</label>';
             html +='</li>';
         });
+
+        html +='</ol>';
+
+        $("#answer").append(html);
+
+    }
+
+    function yesno(answer) {
+        
+        var html = '<ol class="abcd">';
+        var ans1 = 'true';
+        var ans2 = 'false';
+        if (answer == true) {
+            ans1 = 'true';
+            ans2 = 'false';
+        } else {
+            ans1 = 'false';
+            ans2 = 'true';
+        }
+        html +='<li>';
+        html +='<label style="cursor: pointer"><input type="radio" name="choice" value="' + ans1 + '"/> ใช่';
+        html +=' >> ' + answer + '</label>';
+        html +='</li>';
+
+        html +='<li>';
+        html +='<label style="cursor: pointer"><input type="radio" name="choice" value="' + ans2 + '"/> ไม่ใช่';
+        html +='</label>';
+        html +='</li>';
 
         html +='</ol>';
 
@@ -108,18 +156,20 @@
 
         page++;
 
-        if (page > total_page) {
+        if (parseInt(page) > parseInt(total_page)) {
             sendTesting();
+            $("#answer_data").prop('disabled', true);
+            $("#answer_data").html('กำลังตรวจคำตอบของท่านกรุณารอสักครู่');
             return false;
         }
+
         $("#page").html(page);
 
         var k = page - 1;
 
-sendTesting();
-
-
         $("#answer").html('');
+
+       // console.log(k);
 
         $.each(testing_data, function(key, val) {
            if (key == k) {
@@ -138,6 +188,10 @@ sendTesting();
                 if (type == 'abcd') {
                     abcd(val.answer);
                 }
+
+                if (type == 'yes/no') {
+                    yesno(val.correct_answer);
+                }
            }
         })        
 
@@ -145,8 +199,46 @@ sendTesting();
 
     function sendTesting()
     {
-        console.log(answer);        
+        $("#myModal").modal('show')     
     }
+
+    $("#myModal").on('show.bs.modal', function(e) {
+        var total = 0;
+        $.each(answer, function(key, val) {
+            
+            if (val == 'true') {
+                total++;
+            }
+        });
+
+        var testing_score = parseInt(total) / parseInt(total_page);
+
+        testing_score = testing_score * 100;
+        
+        var color = 'red';
+        var title = 'เสียใจด้วยคุณยังสอบไม่ผ่านวิชานี้';
+        var title2 = 'ไม่ผ่านเกณฑ์คะแนน';
+
+        if (parseFloat(testing_score) >= parseFloat(target_percentage)) {
+            color = 'green';
+            title = 'ยินดีด้วยคุณสอบผ่านวิชานี้';
+            title2 = 'ผ่านเกณฑ์คะแนน';
+        }
+
+        $(".modal-body").append('<h1 style="text-align: center; font-size: 40px; color:' + color +'">' + title + '</h1>');
+
+        var msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;">คุณทำได้ <font style="color:' + color + '; font-weight: bold;">' + total + '</font> คะแนน จากทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> คะแนน คิดเป็น <font style="color:' + color + '; font-weight: bold;">' + testing_score +'%</font></p>';
+        $(".modal-body").append(msg);
+
+        msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;">จำนวนคำถามทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> ข้อ</p>';
+        $(".modal-body").append(msg);
+
+        console.log(target_percentage);
+
+        msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;"><font style="color:' + color + '; font-weight: bold;">' + title2 + ' ' + target_percentage + '%</font></p>';
+        $(".modal-body").append(msg);
+
+    })
 
 
 </script>
