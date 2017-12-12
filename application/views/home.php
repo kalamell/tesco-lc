@@ -32,7 +32,7 @@
 		$("div.list-group").html('<a href="#" class="list-group-item">Loading...</a>');
 
 		if (data == null) {
-			alert('null');
+			top.location.href = '<?php echo site_url('auth/logout');?>';
 		}
 
 		setTimeout(function() {
