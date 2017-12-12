@@ -5,14 +5,14 @@
         <div id="vdo">
         </div>
 
-        <div id="pdf" style='display: flex'>
+        <div id="pdf" style='display: flex; overflow: scroll;'>
             <div>
                 <button id="prev">Previous</button>
                 <button id="next">Next</button>
                 &nbsp; &nbsp;
                 <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
             </div>
-            <canvas id="the-canvas">Loading...</canvas>
+            <canvas id="the-canvas"><h1 class='color: #fff; font-size: 25px;'>Loading...</h1></canvas>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 2,
+            scale = 1.5,
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
         
@@ -109,8 +109,8 @@
         // Using promise to fetch the page
         pdfDoc.getPage(num).then(function(page) {
             var viewport = page.getViewport(scale);
-            canvas.height = viewport.height + 500;
-            canvas.width = viewport.width + 500;
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
 
             // Render PDF page into canvas context
             var renderContext = {
