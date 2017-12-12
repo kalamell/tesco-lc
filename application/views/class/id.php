@@ -63,6 +63,15 @@
         }
     });
 
+    var pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 1,
+            canvas = document.getElementById('the-canvas'),
+            ctx = canvas.getContext('2d');
+        
+
     function getDocument(documents) {
         $("#footer").show();
         console.log(documents);
@@ -76,13 +85,6 @@
         // The workerSrc property shall be specified.
         PDFJS.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
 
-        var pdfDoc = null,
-            pageNum = 1,
-            pageRendering = false,
-            pageNumPending = null,
-            scale = 1,
-            canvas = document.getElementById('the-canvas'),
-            ctx = canvas.getContext('2d');
         
         /**
         * Asynchronously downloads PDF.
