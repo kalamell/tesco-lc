@@ -5,7 +5,7 @@
         <div id="vdo">
         </div>
 
-        <div id="pdf">
+        <div id="pdf" style='display: flex'>
             <div>
                 <button id="prev">Previous</button>
                 <button id="next">Next</button>
