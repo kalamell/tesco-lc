@@ -10,7 +10,7 @@
                 <button id="prev">Previous</button>
                 <button id="next">Next</button>
                 &nbsp; &nbsp;
-                <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+                <span style='font-size: 20px; color: #fff;'>Page: <span style='font-size: 20px; color: #fff;' id="page_num"></span> / <span style='font-size: 20px; color: #fff;' id="page_count"></span></span>
             </div>
             <canvas id="the-canvas"><h1 class='color: #fff; font-size: 25px;'>Loading...</h1></canvas>
         </div>
