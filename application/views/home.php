@@ -9,13 +9,20 @@
 		<div class='row'>
 			<div class='col-md-4'>
 				<h2>เลือกฟอร์แมท ( Format ) ของคุณ</h2>
-				<div class='list-group' id="format">
-				</div>
+				<!--<div class='list-group' id="format">
+				</div>-->
+				<select class="selectpicker" id="format">
+				</select>
+
+				<br><br>
+				<a href="#" id="btn-next" class='btn btn-success' style="font-size: 20px; width: 200px;">ถัดไป <i class='fa fa-next'></i></a>
+
+
 
 			</div>
 
 			<div class='col-md-8'>
-				<h2>ความเคลื่อนไหววันนนี้</h2>
+				<h2>ความเคลื่อนไหววันนี้</h2>
 
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				
@@ -26,6 +33,9 @@
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
     <script>
 		var data = JSON.parse(window.localStorage.getItem('data'));
 		var welcome = JSON.parse(window.localStorage.getItem('welcome'));
@@ -40,10 +50,16 @@
 			$.each(data.format, function(key, value) {
 				var title = value.title;
 				var id = value.id;
-				var html = '<a href="<?php echo site_url();?>/format/id/' + id + '" class="list-group-item"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;' + title + '</a>';
+				//var html = '<a href="<?php echo site_url();?>/format/id/' + id + '" class="list-group-item"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;' + title + '</a>';
+				var html = '<option value="' + id + '">' + title + '</option>';
 				$(html).appendTo($("#format"));
 			});
 		}, 0);
+
+		$("#btn-next").on('click', function() {
+			var id = $("#format").val();
+			top.location.href = '<?php echo site_url('format/id');?>/' + id;
+		})
 
 		$.each(welcome, function(key, value) {
 			var name = value.name;

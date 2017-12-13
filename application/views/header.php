@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fonts/font.css">
     <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css>
     <script src="https://use.fontawesome.com/a764165cf7.js"></script>
+	    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+	
+
     <style>
     * {
     	font-family: 'kittithada_light_45_fregular';
@@ -16,6 +21,14 @@
 		font-size: 24px;
 
 	}
+
+	.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+		font-size: 20px;
+		color: #000;
+		width: 100%;
+	}
+
+	.btn-group.bootstrap-select { width: 100% !important; }
 
 	.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
 		color: #fff;
@@ -128,6 +141,8 @@
 		}
 	<?php endif;?>
 
+	.bootstrap-select.btn-group .dropdown-toggle .filter-option { font-size: 20px; }
+
 	</style>
 </head>
 
@@ -143,7 +158,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="<?php echo site_url();?>">
 				<img src="<?php echo base_url();?>/assets/images/Logo.png" style="height: 40px;" alt="Tesco Lotus Learning Center">
 			</a>
 			</div>

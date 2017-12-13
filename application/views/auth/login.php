@@ -3,13 +3,15 @@
 <head>
     <meta charset=utf-8>
     <title>TESCO LOTUS LEARNING CENTER</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fonts/font.css">
+    
     <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css>
     <style>
     #app{font-family:Avenir,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50;margin-top:60px}h1[data-v-5c2dff86],h2[data-v-5c2dff86]{font-weight:400}ul[data-v-5c2dff86]{list-style-type:none;padding:0}li[data-v-5c2dff86]{display:inline-block;margin:0 10px}a[data-v-5c2dff86]{color:#42b983}*{box-sizing:border-box;outline:none}body{background-color:#29363f}.checkbox label,.radio label,a{color:#fff}.panel-info,.panel-info>.panel-heading{background-color:transparent;border:0}img{margin:0 auto}
     .forget {
         display: none;
     }
-    h4, li { color: #fff; font-size: 13px;}
+    h4, li { color: #fff; font-size: 18px;}
     .input-group ul { margin: 0px; padding: 0px; }
     li { 
         margin: 0px; padding: 0px;
@@ -20,6 +22,19 @@
         background-color: rgba(211, 211, 211, 0.1);
         padding: 20px;
     }
+
+    input[type=text], input[type=password], label, button[type=submit] {
+        font-size: 20px;
+    }
+
+    * {
+        font-family: 'kittithada_light_45_fregular';
+    }
+
+    .modal-title { font-size: 22px; }
+    .modal-body { font-size: 20px; }
+
+
     </style>
 </head>
 
@@ -53,7 +68,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
-                                <div><a href="#" class='lnk-forget'>
+                                <div><a href="#" class='lnk-forget' style="font-size: 20px;">
                                             ลืมรหัสผ่าน
                                         </a></div>
                             </div>
@@ -78,7 +93,8 @@
                         </div>
 
                         <div class="input-group" style="margin-bottom: 25px;"><span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                            <input id="mobile" type="text" name="mobile" value="" readonly placeholder="เบอร์โทรศัพท์" class="form-control">
+                            <input id="mobileshow" type="text" name="mobileshow" value="" readonly placeholder="เบอร์โทรศัพท์" class="form-control">
+                            <input id="mobile" type="hidden" name="mobile" value="" readonly placeholder="เบอร์โทรศัพท์" class="form-control">
                         </div>
                         <div class="input-group" style='margin-top: 20px; width: 100%; background: #fff; margin-bottom: 5px;'>
                             <img src="" id="capt" style='width: 100%; height: 80px; filter: blur(1px)' class="img-responsive">
@@ -88,7 +104,7 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-sm-6">
-                                <button id="btn-refresh" type="button" class="col-sm-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข </button>
+                                <button id="btn-refresh" type="button" class="col-sm-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข </button>
                             </div>
                             <div class="col-sm-6">
                                 <button id="btn-login2" type="submit" class="col-sm-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP </button>
@@ -96,7 +112,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
-                                <div><a href="#" class='lnk-login'>
+                                <div><a href="#" class='lnk-login' style="font-size: 20px;">
                                             กลับไปเข้าระบบใหม่
                                         </a></div>
                             </div>
@@ -121,10 +137,10 @@
                         <div class="input-group" style="margin-bottom: 25px;"><span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
                             <input id="otp" type="text" name="otp" value="" placeholder="เลข OTP ที่ได้รับจากมือถือ" autocomplete="off" class="form-control">
                         </div>
-                        <div class="input-group" style="margin-bottom: 25px;"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <div class="input-group" style="margin-bottom: 25px; "><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="new-password" type="password" name="new_password" placeholder="รหัสผ่านใหม่" class="form-control">
                         </div>
-                        <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <div class="input-group" style=""><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="confirm-password" type="password" name="confirm_password" placeholder="ยืนยันรหัสผ่าน" class="form-control">
                         </div>
                         <div class="input-group" style="margin-bottom: 10px;">
@@ -157,6 +173,7 @@
     </div>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <script src="https://use.fontawesome.com/a764165cf7.js"></script>
     <script>
         $(function() {
 
@@ -174,6 +191,7 @@
             $("a.lnk-forget").hide();
             $("#btn-login").prop('disabled', true);
 
+            /*
             $("#login-username").on('blur', function() {
                 if ($(this).val() != '') {
                     getStatusLogin();
@@ -181,6 +199,8 @@
                     $(this).focus();
                 }
             })
+            */
+
 
             $("#login-password").on('focus', function() {
                 if ($("#login-username").val() != '') {
@@ -237,8 +257,10 @@
 
                 $.post($("form#forgetform").attr('action'), { captcha: $("input[name=captcha]").val() }, function(res) {
                     if (res.status == false) {
-                        $("#login-alert2").html('คุณกรอกเลขผิด');
+                        /*$("#login-alert2").html('คุณกรอกเลขผิด');
                         $("#login-alert2").show();
+                        */
+                        //alert('คุณกรอกเลขผิด');
                         getCaptcha();
                         setTimeout(function() {
                             $("#login-alert2").fadeOut();
@@ -256,8 +278,11 @@
                 var confirm = $("#confirm-password");
 
                 if (newpass.val() !== confirm.val()) {
+                    /*
                     $("#login-alert3").html('รหัสผ่านทั้งสองอันไม่ถูกต้อง');
                     $("#login-alert3").show();
+                    */
+                    //alert('รหัสผ่านทั้งสองอันไม่ถูกต้อง');
                     getCaptcha();
                     setTimeout(function() {
                         $("#login-alert3").fadeOut();
@@ -314,8 +339,24 @@
                 },
                 success: function(res) {
                     if (res.status == false) {
-                        $("#login-alert3").html(res.error_msg);
+                        
+                        if (res.code =='1001') {
+                            getAlert("โปรดใส่ รหัสพนักงานและรหัสผ่านอีกครั้ง")
+                        }
+
+                        if (res.code =='1005') {
+                            getAlert("โปรดตั้งรหัสผ่านตามนโยบาย");
+                            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                        }
+
+                        if (res.code =='1004') {
+                            getAlert("โปรดใส่รหัส OTP ใหม่อีกครั้ง หรือขอรหัส OTP ใหม่");
+                            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                        }
+
+                        /*$("#login-alert3").html(res.error_msg);
                         $("#login-alert3").show();
+                        */
                         $("#btn-login3").prop('disabled', false);
                         $("#btn-login3").html('Login');   
                     } else {
@@ -376,16 +417,53 @@
                         $("#btn-login").prop('disabled', false);
                         $("#btn-login").html('เข้าสู่ระบบ');
                         if (res.code == '1001') {
+                            /*
                             $("#login-alert").show();
                             $("#login-alert").html(res.error_msg);
+                            */
+
+                            getAlert('โปรดใส่ รหัสพนักงานและรหัสผ่านใหม่อีกครั้ง');
                             setTimeout(function() {
                                 $("#login-alert").fadeOut();
                                 $("#login-username").focus();
                             }, 2000);
                         }
                         if (res.code == '1002') {
+                            /*
                             $("#login-alert").show();
                             $("#login-alert").html(res.error_msg);
+                            */
+                            //alert(res.error_msg);
+                            getAlert(res.error_msg);
+
+                            setTimeout(function() {
+                                $("#login-alert").fadeOut();
+                                $("#login-username").focus();
+                            }, 2000);
+                        }
+
+                        if (res.code == '1003') {
+                            /*
+                            $("#login-alert").show();
+                            $("#login-alert").html(res.error_msg);
+                            */
+                            //alert(res.error_msg);
+                            getAlert('กรุณาตรวจสอบ รหัส OTP ใหม่อีกครั้ง');
+
+                            setTimeout(function() {
+                                $("#login-alert").fadeOut();
+                                $("#login-username").focus();
+                            }, 2000);
+                        }
+
+                        if (res.code == '1004') {
+                            /*
+                            $("#login-alert").show();
+                            $("#login-alert").html(res.error_msg);
+                            */
+                            //alert(res.error_msg);
+                            getAlert(res.error_msg);
+
                             setTimeout(function() {
                                 $("#login-alert").fadeOut();
                                 $("#login-username").focus();
@@ -437,8 +515,13 @@
                 },
                 success: function(res) {
                     if (res.status == false) {
+                        /*
                         $("#login-alert").show();
                         $("#login-alert").html(res.error_msg);
+                        */
+                        //alert(res.error_msg);
+                        getAlert(res.error_msg);
+
                         setTimeout(function() {
                             $("#login-alert").fadeOut();
                             $("#login-username").focus();
@@ -446,7 +529,13 @@
                     } else {
                         $("#login-username2").val(id);
                         $("#login-username3").val(id);
+                        var mobile = res.telephone;
+                        var top = mobile.substring(0, 6);
+
                         $("#mobile").val(res.telephone);
+                        $("#mobileshow").val(top + 'XXXX');
+
+
 
                         if (res.is_first_time_login == true) {
                             getCaptcha();
@@ -454,8 +543,9 @@
                             $(".forget").show();
                         } else {
                             if (res.is_locked == true) {
-                                $("#login-alert").show();
-                                $("#login-alert").html('ท่านใส่รหัสผิดเกินกว่า 5 ครั้ง กรุณาติดต่อผู้ดูแลระบบ');
+                                //$("#login-alert").show();
+                                //$("#login-alert").html('ท่านใส่รหัสผิดเกินกว่า 5 ครั้ง กรุณาติดต่อผู้ดูแลระบบ');
+                                getAlert('ท่านใส่รหัสผิดเกินกว่า 5 ครั้ง กรุณาติดต่อผู้ดูแลระบบ');
                                 setTimeout(function() {
                                     $("#login-alert").fadeOut();
                                     $("#login-username").focus();
@@ -464,8 +554,9 @@
                                 $("#btn-login").prop('disabled', true);
                             } else {
                                 if (res.is_telephone_existed == false) {
-                                    $("#login-alert").show();
-                                    $("#login-alert").html('รหัสพนักงานนี้ยังไม่มีหมายเลขโทรศัพท์ กรุณาติดต่อผู้ดูแลระบบ');
+                                    //$("#login-alert").show();
+                                    //$("#login-alert").html('รหัสพนักงานนี้ยังไม่มีหมายเลขโทรศัพท์ กรุณาติดต่อผู้ดูแลระบบ');
+                                    getAlert('รหัสพนักงานนี้ยังไม่มีหมายเลขโทรศัพท์ กรุณาติดต่อผู้ดูแลระบบ');
                                     setTimeout(function() {
                                         $("#login-alert").fadeOut();
                                         $("#login-username").focus();
@@ -516,7 +607,42 @@
             });
 
         }
+
+        function getAlert(msg, error = false)
+        {
+            $("#myModal").modal('show');
+
+            if (error == false) {
+                msg = '<fon color="red">' + msg + '</p>';
+                $(".modal-header").css('background-color', '#999');
+                $(".modal-title").css('color', '#fff');
+                $(".close").css('color', '#fff');
+            }
+            $(".modal-body").html(msg);
+        }
+
+        $("#myModal").on('show.bs.modal', function () {
+
+        })
     </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header"  style="background-color: #49a232">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='fa  fa-times-circle'></i></button>
+                <h4 class="modal-title" id="myModalLabel" style="color: #000;">ข้อความ</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+           
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

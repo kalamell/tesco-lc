@@ -1,11 +1,11 @@
     <div class='container'>
-        <div id="scorm">
+        <div id="scorm" style="display: none; ">
         </div>
 
-        <div id="vdo">
+        <div id="vdo" style="display: none; ">
         </div>
 
-        <div id="pdf" style='display: flex; overflow: scroll;'>
+        <div id="pdf" style='display: none; overflow: scroll;'>
             <div class='pull-left'>
                 <button id="prev" class='btn btn-sm btn-info'>ก่อนหน้า</button>
                 <button id="next" class='btn btn-sm btn-info'>ถัดไป</button>
