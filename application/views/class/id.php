@@ -20,6 +20,8 @@
         <button class='btn btn-info' id="document-prev">เอกสารก่อนหน้า</button> 
         <button class='btn btn-info' id="document-next"> เอกสารถัดไป </button> 
     </div>
+
+    var base_url = '<?php echo site_url();?>/';
     
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
@@ -27,6 +29,7 @@
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
     
     <script>
+
     var data = JSON.parse(window.localStorage.getItem('data'));
     $.map(data.format, function(obj) {
         if (obj.id == <?php echo $this->uri->segment(3);?>) {
@@ -47,7 +50,8 @@
                                     
 
                                     if (val_course.type =='SCORM 1.2') {
-                                        $("#scorm").html('<iframe src="https://backend.tescolotuslc.com/learningcenter/storage/scorm/2017-10-12/10/80a2/Right Stock Right Place (RSRP)/index_lms.html" id="course-content" frameborder="0" height="100%" width="100%" style="height: 800px;"></iframe>');
+                                        $("#scorm").html('<iframe src=" ' + val_course.document[0].file[0].file +'" id="course-content" frameborder="0" height="100%" width="100%" style="height: 800px;"></iframe>');
+                                        $("#scorm").show();
                                     }
 
                                     if (val_course.type == 'Normal') {
