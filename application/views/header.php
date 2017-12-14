@@ -8,6 +8,7 @@
     <script src="https://use.fontawesome.com/a764165cf7.js"></script>
 	    <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/css/jquery.fancybox.min.css">
 
 	
 
@@ -38,6 +39,7 @@
 	h2 { color: #fff; font-size: 28px;}
 	a.list-group-item, .panel-title>a, .panel-default>.panel-heading+.panel-collapse>.panel-body {
 		font-size: 20px;
+		font-weight: 900;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #fff;
@@ -103,6 +105,8 @@
 		text-shadow: 0px;
 	}
 
+
+
 	.modal-title {
 	    font-size: 24px;
 	    color: #fff;
@@ -141,12 +145,40 @@
 		}
 	<?php endif;?>
 
-	.bootstrap-select.btn-group .dropdown-toggle .filter-option { font-size: 20px; }
+	.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+    .modal-open .modal {
+        top: 25%;
+    }
+
+
+
+    .modal-open .modal {
+        top: 25%;
+    }
+
+    .modal-footer {
+    	text-align: center;
+    }
+
+
+
+    ol.abcd li:hover {
+    	background-color: #a5a5a5;
+    	color: #000;
+    	list-style: none;
+    }
+    ol.abcd li:hover label { color: #000; font-weight: 500; }
+
+
 
 	</style>
 </head>
 
-<body style='background-color: #29363f'>
+<body style='background-color: #29363f' id="bd">
     
 	<nav class="navbar navbar-default" style="border: 0px; background-color: #019b79; height: 70px; border-radius: 0px;">
 		<div class="container-fluid">

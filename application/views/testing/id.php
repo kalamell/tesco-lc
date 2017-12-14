@@ -13,10 +13,14 @@
                 <div class='col-md-9' id="answer">
                     
                 </div>
-
-                <button class='btn btn-success col-md-4 col-md-offset-6' id="answer_data" style="font-size: 22px;">ตอบ</button>
+                
                 
             </div>
+            <div class='row'>
+                <button class='btn btn-success col-md-4 col-md-offset-3' style="display: none; font-size: 22px;" id="answer_prev" style="font-size: 22px;"><i class='fa fa-chevron-circle-left'></i> ข้อก่อนหน้า</button>
+                <button class='btn btn-success col-md-4 col-md-offset-6' id="answer_data" style="font-size: 22px;">ตอบ</button>
+            </div>
+
         </div>
 
 
@@ -42,7 +46,8 @@
 
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
-    <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js"></script>
 
     <script type="text/javascript">
     var testing = JSON.parse(window.localStorage.getItem('testing'));
@@ -51,11 +56,12 @@
     $("#page").html(page);
     var inx = 0;
     var testing_data = [];
-    var target_percentage = 0;
+    var target_percentage = 0;  
 
     $.each(testing.testing, function(key, val) {
         if (val.id == <?php echo $this->uri->segment(3);?>) {
             console.log(val);
+            
 
             target_percentage = val.target_percentage;
 
@@ -76,10 +82,8 @@
             $("#answer").append('<h3 class="title-choice">' + title + '</h3>');
 
             if (cover !== null ) {
-                $("#answer").append('<p><img class="img-responsive" src="' + cover + '" /></p>');
+                $("#answer").append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /></a></p>');
             }
-
-            console.log(type);
 
             if (type == 'abcd') {
                 abcd(val.question[0].answer);
@@ -96,9 +100,10 @@
     function abcd(answer) {
         
         var html = '<ol class="abcd">';
+        var choice = ['ก.) ','ข.) ', 'ค.) ', 'ง.) ']
         $.each(answer, function(key, val) {
             html +='<li>';
-            html +='<label style="cursor: pointer"><input type="radio" name="choice" value="' + val.is_correct + '"/> ' + val.text;
+            html +='<label style="cursor: pointer"><input type="radio" name="choice" value="' + val.is_correct + '"/> ' + choice[key] + val.text;
             html +=' >> ' + val.is_correct + '</label>';
             html +='</li>';
         });
@@ -146,9 +151,47 @@
 
     var answer = [];
 
+    $("#answer_prev").on('click', function() {
+        if (page > 0) {
+            page--;
+        }
+
+        if (page>0) {
+            $("#page").html(page);
+        }
+
+        var k = page;
+
+        $("#answer").html('');
+
+        $.each(testing_data, function(key, val) {
+           if (key == k) {
+                
+                $("#title").html(val.title);
+                var title = val.description;
+                var type = val.type;
+                var cover = val.cover;
+
+                $("#answer").append('<h3 class="title-choice">' + title + '</h3>');
+
+                 if (cover !== null ) {
+                    $("#answer").append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /></a></p>');
+                }
+
+                if (type == 'abcd') {
+                    abcd(val.answer);
+                }
+
+                if (type == 'yes/no') {
+                    yesno(val.correct_answer);
+                }
+           }
+        })        
+    })
+
     $("#answer_data").on('click', function() {
         if ($('input[type=radio]:checked').size()==0) {
-            alert('กรุณาเลือกคำตอบ');
+             $("#myModal2").modal('show');
             return false;
         }
 
@@ -169,6 +212,17 @@
 
         $("#answer").html('');
 
+        if (k > 0 ) {
+            $("#answer_prev").show();
+            $("#answer_data").removeClass('col-md-offset-6');
+            $("#answer_data").addClass('col-md-offset-1');
+        } else {
+            $("#answer_prev").hide();
+            $("#answer_data").removeClass('col-md-offset-1');
+            $("#answer_data").addClass('col-md-offset-6');
+        }
+
+
        // console.log(k);
 
         $.each(testing_data, function(key, val) {
@@ -182,7 +236,7 @@
                 $("#answer").append('<h3 class="title-choice">' + title + '</h3>');
 
                 if (cover !== null ) {
-                    $("#answer").append('<p><img class="img-responsive" src="' + cover + '" /></p>');
+                    $("#answer").append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /></a></p>');
                 }
 
                 if (type == 'abcd') {
@@ -238,10 +292,33 @@
         msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;"><font style="color:' + color + '; font-weight: bold;">' + title2 + ' ' + target_percentage + '%</font></p>';
         $(".modal-body").append(msg);
 
+    });
+
+    $(function() {
+        $(".fancybox").fancybox();
     })
 
 
 </script>
+
+<!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
+                <h4 class="modal-title" id="">คำเตือน</h4>
+            </div>
+            <div class="modal-body" style="font-size: 24px;">
+                กรุณาเลือกคำตอบ
+            </div>
+            <div class="modal-footer" style="text-align: right;">
+                <button type="button" style="" data-dismiss="modal" class="btn btn-success"><i class="fa fa-window-close"></i> ปิด</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     
 </body>
 

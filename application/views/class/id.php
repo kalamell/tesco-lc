@@ -55,6 +55,7 @@
                                     }
 
                                     if (val_course.type == 'Normal') {
+
                                         getDocument(val_course.document);
                                         console.log(val_course);
                                     }

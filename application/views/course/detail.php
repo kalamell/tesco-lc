@@ -5,11 +5,11 @@
     
 
     <div id="users" style="display: none;">
-       <h3>ลงทะเบียนเรียนแบบกลุ่ม</h3>
+       <h3><i class='fa fa-users'></i> ลงทะเบียนเรียนแบบกลุ่ม</h3>
         <form class="form-inline" id="frm_emp_id">
           <div class="form-group">
-            <label for="emp_id" style="font-size: 20px;">เพิ่มผู้เรียน ใส่รหัสพนักงาน</label>
-            <input type="text" class="form-control" id="emp_id" placeholder="" autocomplete="off" name="emp_id" style="width: 200px; font-size: 20px;">
+            <label for="emp_id" style="font-size: 20px;">เพิ่มผู้เรียน ใส่รหัสพนักงาน&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" class="form-control" id="emp_id" placeholder="" autocomplete="off" name="emp_id" style="width: 350px; font-size: 20px;">
           </div>
           
         </form>

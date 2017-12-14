@@ -19,17 +19,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
                 <h4 class="modal-title" id="myModalLabel">คำอธิบาย</h4>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-window-close"></i> ปิด</button>
-                <button type="button" class="btn btn-primary" id="create_single"><i class="fa fa-user"></i> ลงทะเบียนเรียนเดี่ยว</button>
-                <button type="button" class="btn btn-primary" id="create_group"><i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม</button>
-                <button type="button" style="display: none;" class="btn btn-primary" id="save_group"><i class="fa fa-floppy-o"></i> บันทึก</button>
+                <button type="button" class="btn btn-success" id="create_single"><i class="fa fa-user"></i> ลงทะเบียนเรียนเดี่ยว</button>
+                <button type="button" class="btn btn-success" id="create_group"><i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม</button>
+                <button type="button" style="display: none; width: 200px;" class="btn btn-success" id="save_group"><i class="fa fa-floppy-o"></i> บันทึก</button>
             </div>
             </div>
         </div>

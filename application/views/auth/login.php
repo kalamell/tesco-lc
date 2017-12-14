@@ -31,8 +31,24 @@
         font-family: 'kittithada_light_45_fregular';
     }
 
-    .modal-title { font-size: 22px; }
-    .modal-body { font-size: 20px; }
+    .modal-title { font-size: 28px; font-weight: 900; color: #000; }
+
+    .modal-header {
+        color: #000;
+        text-align: left;
+        background-color: #000;
+        padding: 5px;
+    }
+    .modal-body {
+        font-size: 26px;
+        text-align: center;
+        font-weight: 900;
+        color: #000;
+    }
+
+    .modal-open .modal {
+        top: 25%;
+    }
 
 
     </style>
@@ -345,7 +361,11 @@
                         }
 
                         if (res.code =='1005') {
-                            getAlert("โปรดตั้งรหัสผ่านตามนโยบาย");
+                            var msg = 'นโยบายการตั้งรหัสผ่าน<br>';
+                            msg += 'รหัสผ่านต้องประกอบไปด้วย ตัวอักษรพิมพ์ใหญ่, ตัวอักษรตัวพิมพ์เล็ก, ตัวอักษรตัวเลข, ตัวอักษรพิเศษ (A-Z, a-z, 0-9, !"#$%)<br>';
+                            msg += 'รหัสผ่านต้องมีความยาวต่ำสุด 8 ตัวอักษร และสูงสุด 18 ตัวอักษร<br>';
+                            msg += 'รหัสผ่านต้องไม่ซ้ำกับรหัสผ่านล่าสุด 3 ครั้งสุดท้าย';
+                            getAlert(msg);
                             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
                         }
 
@@ -614,8 +634,6 @@
 
             if (error == false) {
                 msg = '<fon color="red">' + msg + '</p>';
-                $(".modal-header").css('background-color', '#999');
-                $(".modal-title").css('color', '#fff');
                 $(".close").css('color', '#fff');
             }
             $(".modal-body").html(msg);
@@ -630,7 +648,7 @@
     <div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-header"  style="background-color: #49a232">
+            <div class="modal-header"  style="background-color: #a23232">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='fa  fa-times-circle'></i></button>
                 <h4 class="modal-title" id="myModalLabel" style="color: #000;">ข้อความ</h4>
             </div>
