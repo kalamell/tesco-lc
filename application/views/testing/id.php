@@ -226,7 +226,7 @@
         }
 
 
-        var img = '<img style="width: 200px;" src="' + src + '" />';
+        var img = '<img style="width: 120px;" src="' + src + '" />';
         $(".modal-body").append('<p style="text-align: center;">' + img + '</p>');
 
         $(".modal-body").append('<h1 style="text-align: center; font-size: 40px; color:' + color +'">' + title + '</h1>');
