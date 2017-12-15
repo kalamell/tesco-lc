@@ -5,20 +5,57 @@
         <div id="vdo" style="display: none; ">
         </div>
 
-        <div id="pdf" style='display: none; overflow: scroll;'>
-            <div class='pull-left'>
-                <button id="prev" class='btn btn-sm btn-info'>ก่อนหน้า</button>
-                <button id="next" class='btn btn-sm btn-info'>ถัดไป</button>
-                <br>
-                <span style='font-size: 20px; color: #fff;'>หน้าที่ : <span style='font-size: 20px; color: #fff;' id="page_num"></span> / <span style='font-size: 20px; color: #fff;' id="page_count"></span></span>
+        <div id="pdf" style='display: none; overflow: scroll-x;'>
+            <div class='transfer' style=""><img src="<?php echo base_url();?>assets/images/loading.gif" style='margin: 0 auto; display: block;'></div>
+            <div id="show_pdf" style="display: none;">
+                <div class='pull-left' style="flex-direction: column; width: 100%; float: left;">
+                    <span style='font-size: 20px; color: #fff;'>หน้าที่ : <span style='font-size: 20px; color: #fff;' class="page_num"></span> / <span style='font-size: 20px; color: #fff;' class="page_count"></span></span>
+                </div>
+
+                <canvas id="the-canvas" style="flex-direction: column; width: 100%; clear: both;"><h1 class='color: #fff; font-size: 25px;'>Loading...</h1></canvas>
+
+                <div class='pull-left' style="flex-direction: column; width: 100%; float: left;">
+                    <span style='font-size: 20px; color: #fff;'>หน้าที่ : <span style='font-size: 20px; color: #fff;' class="page_num"></span> / <span style='font-size: 20px; color: #fff;' class="page_count"></span></span>
+                </div>
             </div>
-            <canvas id="the-canvas"><h1 class='color: #fff; font-size: 25px;'>Loading...</h1></canvas>
+
         </div>
     </div>
 
     <div id="footer" style='display: none;'>
-        <button class='btn btn-info' id="document-prev">เอกสารก่อนหน้า</button> 
-        <button class='btn btn-info' id="document-next"> เอกสารถัดไป </button> 
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-4'>
+                    <button class='btn btn-default btn-sm' style="font-size: 20px;" id="document-"><i class='fa fa-chevron-left'></i> เอกสารก่อนหน้า</button> 
+                    <button class='btn btn-default btn-sm' style="font-size: 20px;" id="document-"> เอกสารถัดไป <i class='fa fa-chevron-right'></i></button> 
+                </div>
+
+                <div class='col-md-4' style="text-align: center;">
+                    <button class='btn btn-default' style="font-size: 20px;" id="document-prev"><i class='fa fa-chevron-left'></i> หน้าก่อนหน้า</button> 
+                    <button class='btn btn-default' style="font-size: 20px;" id="document-next"> หน้าถัดไป <i class='fa fa-chevron-right'></i></button> 
+                </div>
+
+                <div class='col-md-4'>
+                    <button class='btn btn-default pull-right' style="font-size: 20px;" id="documents"> <i class='fa fa-folder-open'></i> สารบัญ</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='fa fa-close'></i></button>
+                    <h4 class="modal-title" id="myModalLabel">สารบัญ</h4>
+                </div>
+                <div class="modal-body" id="list-documents">
+                    
+                </div>
+                
+            </div>
+        </div>
     </div>
 
     var base_url = '<?php echo site_url();?>/';
@@ -36,17 +73,24 @@
 
             $.each(obj.function, function(key, val) {
                 if (val.id == <?php echo $this->uri->segment(4);?> ) {  
-                   
+
                     
+
 
                     $.each(val.department, function(key_dep, valdep) {
                         if (valdep.id == <?php echo $this->uri->segment(5);?>) {
+
+
                             
                             
                             $.each(valdep.course, function(key_course, val_course) {
-                                console.log(val_course);
+
+
+                                
                                 
                                 if (val_course.id == <?php echo $this->uri->segment(6);?>) {
+
+                                    console.log(val_course);
                                     
 
                                     if (val_course.type =='SCORM 1.2') {
@@ -56,8 +100,12 @@
 
                                     if (val_course.type == 'Normal') {
 
+                                        $("#pdf").show();
+                                        $("#pdf").css({
+                                            
+                                        });
+
                                         getDocument(val_course.document);
-                                        console.log(val_course);
                                     }
                                 }
                             });
@@ -72,14 +120,14 @@
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 1.5,
+            scale = 2,
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
         
 
     function getDocument(documents) {
         $("#footer").show();
-        console.log(documents);
+        
 
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server.
@@ -94,12 +142,40 @@
         /**
         * Asynchronously downloads PDF.
         */
-        PDFJS.getDocument(url).then(function(pdfDoc_) {
-        pdfDoc = pdfDoc_;
-        document.getElementById('page_count').textContent = pdfDoc.numPages;
+        //PDFJS.getDocument(url).then(function(pdfDoc_) {
+        //pdfDoc = pdfDoc_;
+        //document.getElementById('page_count').textContent = pdfDoc.numPages;
+        //renderPage(pageNum);
+        //});
 
-        // Initial/first page rendering
-        renderPage(pageNum);
+        /*
+        PDFJS.getDocument({ url: url }, false, null, function(progress) {
+            console.log(progress)
+
+
+            var percent_loaded = (progress.loaded/progress.total)*100;
+            console.log(percent_loaded)
+        }).then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            //document.getElementById('page_count').textContent = pdfDoc.numPages;
+            $(".page_count").html(pdfDoc.numPages);
+            renderPage(pageNum);
+        }).catch(function(err) {
+            console.log(err);
+        });
+        */
+
+        var loadingTask = PDFJS.getDocument(url);
+        loadingTask.onProgress = function(progress) {
+            $("#footer").hide();
+        }
+        loadingTask.promise.then(function(pdf) {
+            $('.transfer').hide();
+            $("#footer").show();
+            $("#show_pdf").show();
+            pdfDoc = pdf;
+            $(".page_count").html(pdfDoc.numPages);
+            renderPage(pageNum);
         });
 
     }
@@ -136,7 +212,8 @@
         });
 
         // Update page counters
-        document.getElementById('page_num').textContent = pageNum;
+        //document.getElementById('page_num').textContent = pageNum;
+        $(".page_num").html(pageNum);
     }
 
     /**
@@ -161,7 +238,17 @@
     pageNum--;
     queueRenderPage(pageNum);
     }
-    document.getElementById('prev').addEventListener('click', onPrevPage);
+
+    $("#document-prev").on('click', function() {
+        onPrevPage();
+         $("html, body").animate({ scrollTop: 0 }, 1000);
+    })
+
+    $("#document-next").on('click', function() {
+        onNextPage();
+         $("html, body").animate({ scrollTop: 0 }, 1000);
+    })
+    //document.getElementById('prev').addEventListener('click', onPrevPage);
 
     /**
     * Displays next page.
@@ -173,9 +260,11 @@
     pageNum++;
     queueRenderPage(pageNum);
     }
-    document.getElementById('next').addEventListener('click', onNextPage);
+    //document.getElementById('next').addEventListener('click', onNextPage);
 
-    
+    $("#documents").on('click', function() {
+        $("#myModal").modal('show');
+    })
 
     
     </script>

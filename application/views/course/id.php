@@ -52,7 +52,7 @@
                                 
                                 $.each(valdep.course, function(key_course, val_course) {
                                     var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + valdep.id + '/' + val_course.id;
-                                    var html =  '<div class="col-md-2" id="c' + val_course.id +'">';
+                                    var html =  '<div class="col-md-2 col-sm-3" id="c' + val_course.id +'">';
                                     html += '<a data-toggle="modal" data-remote="false" data-target="#myModal" href="' + href + '" class="book">';
                                     html += '<p>' + val_course.name + '  </p>';
                                     html += '</a>';

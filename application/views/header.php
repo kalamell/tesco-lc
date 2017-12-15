@@ -121,13 +121,20 @@
 		background-color: #009688;
 	}
 
-	.title-choice { font-size: 22px; color: #000; background-color: #fff;  margin-top: 0px; padding: 10px;}
+	.title-choice { font-size: 25px; color: #000; background-color: #fff;  margin-top: 0px; padding: 10px;}
 
 	ol.abcd li label {
-		font-size: 20px;
-		color: #fff;
-		font-weight: 100;
-		text-shadow: 0px 0px 0px;
+	    font-size: 25px;
+	    color: #fff;
+	    font-weight: 100;
+	    text-shadow: 0px 0px 0px;
+	    margin-bottom: 15px;
+	}
+
+	ol.abcd li label input[type=radio] {
+		width: 20px;
+		height: 20px;
+
 	}
 
 	<?php if ($this->uri->segment(1) == 'classroom' && $this->uri->segment(2)=='id'):?> 
@@ -139,7 +146,6 @@
 		}
 		#footer{
 			height: 60px;
-			margin-top: 80px;
 			padding: 10px;
 			background: #019b79;
 		}
@@ -172,6 +178,9 @@
     	list-style: none;
     }
     ol.abcd li:hover label { color: #000; font-weight: 500; }
+
+    .box-answer { display: none }
+    .box-answer.active { display: block; }
 
 
 

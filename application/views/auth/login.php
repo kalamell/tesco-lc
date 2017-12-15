@@ -433,6 +433,7 @@
                     password: password
                 },
                 success: function(res) {
+                    console.log(res);
                     if (res.status == false) {
                         $("#btn-login").prop('disabled', false);
                         $("#btn-login").html('เข้าสู่ระบบ');
@@ -497,7 +498,7 @@
                             'employee_id': userid,
                             'firstname': res.firstname,
                             'lastname': res.lastname,
-                            'fullname': res.user.usage,
+                            'fullname': res.firstname_thai + ' ' + res.lastname_thai,
                             'token': res.token
                         }, function() {
                             window.localStorage.setItem('token', JSON.stringify(res.token));
