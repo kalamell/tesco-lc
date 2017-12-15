@@ -52,7 +52,9 @@
 				var id = value.id;
 				//var html = '<a href="<?php echo site_url();?>/format/id/' + id + '" class="list-group-item"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;' + title + '</a>';
 				var html = '<option value="' + id + '">' + title + '</option>';
-				$(html).appendTo($("#format"));
+				if (id !== 1) {
+					$(html).appendTo($("#format"));
+				}
 			});
 		}, 0);
 

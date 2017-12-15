@@ -26,14 +26,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
                 <h4 class="modal-title" id="myModalLabel">แบบข้อสอบ</h4>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-window-close"></i> ปิด</button>
                 <a href="" type="button" class="btn btn-primary" id="gototesting"><i class="fa fa-edit"></i> ทำข้อสอบ</a>
             </div>
             </div>

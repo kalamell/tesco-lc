@@ -88,7 +88,7 @@
                 $("#answer #step-" + id ).append('<h3 class="title-choice">' + title + '</h3>');
 
                 if (cover !== null ) {
-                    $("#answer #step-" + id ).append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /></a></p>');
+                    $("#answer #step-" + id ).append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /> <font color="red" style="font-size: 30px;">** คลิกที่รูปเพื่อขยายภาพ</font></a></p>');
                 }
 
                 if (type == 'abcd') {
@@ -217,11 +217,17 @@
         var color = 'red';
         var title = 'เสียใจด้วยคุณยังสอบไม่ผ่านวิชานี้';
         var title2 = 'ไม่ผ่านเกณฑ์คะแนน';
+        var src = "<?php echo base_url('assets/images/TryAgain.png');?>";
         if (parseFloat(testing_score) >= parseFloat(target_percentage)) {
             color = 'green';
             title = 'ยินดีด้วยคุณสอบผ่านวิชานี้';
             title2 = 'ผ่านเกณฑ์คะแนน';
+            src = "<?php echo base_url('assets/images/GoodJob.png');?>";
         }
+
+
+        var img = '<img style="width: 200px;" src="' + src + '" />';
+        $(".modal-body").append('<p style="text-align: center;">' + img + '</p>');
 
         $(".modal-body").append('<h1 style="text-align: center; font-size: 40px; color:' + color +'">' + title + '</h1>');
 
@@ -254,7 +260,7 @@
                 กรุณาเลือกคำตอบ
             </div>
             <div class="modal-footer" style="text-align: right;">
-                <button type="button" style="" data-dismiss="modal" class="btn btn-success"><i class="fa fa-window-close"></i> ปิด</button>
+                <button type="button" style="" data-dismiss="modal" class="btn btn-success"> ตกลง</button>
             </div>
             </div>
         </div>
