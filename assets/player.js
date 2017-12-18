@@ -89,7 +89,8 @@ function playerAPI12() {
         that.lastError = 0;
         that.initialized = false;
 
-        top.location.href = base_url;
+        top.location.reload();
+        
         return 'true';
     };
     this.LMSGetValue = function (varName) {

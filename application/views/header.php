@@ -63,7 +63,7 @@
         width: 50%;
     }
     .box p {
-		
+		line-height: 1;
         text-align: center;
         color: #fff;
 		margin-top: 20px;
