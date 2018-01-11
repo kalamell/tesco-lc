@@ -27,7 +27,7 @@
                 $("li.active").text(obj.title);
 
                 $.each(obj.function, function(key, val) {
-                    var html =  '<div class="col-md-2 col-sm-3 col-xs-3">';
+                    var html =  '<div class="col-md-2 col-sm-3 col-xs-6">';
                         html += '<a href="<?php echo site_url('format/id/'.$this->uri->segment(3));?>/' + val.id + '" class="box" style="background-color: ' + val.color + '">';
                         html +=  '<img src="' + val.cover + '" class="img-responsive"/>';
                         html += '<p>' + val.title + ' <br>( ' + val.department.length + ' )</p>';

@@ -39,6 +39,8 @@
     <script>
 		var data = JSON.parse(window.localStorage.getItem('data'));
 		var welcome = JSON.parse(window.localStorage.getItem('welcome'));
+
+		console.log(data);
 		$("div.list-group").html('<a href="#" class="list-group-item">Loading...</a>');
 
 		if (data == null) {

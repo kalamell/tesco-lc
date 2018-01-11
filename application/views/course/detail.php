@@ -84,6 +84,7 @@
             
             $("#create_single").prop('disabled', true);
             $("#create_single").html('กำลังดำเนินการรอสักครู่');   
+            $("#create_group").prop('disabled', true);
 
             /*$.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
@@ -118,6 +119,7 @@
 
            $("#create_group").hide();
            $("#save_group").show();
+           $("#create_group").prop('create_single', true);
         })
 
         $("#save_group").on('click', function() {

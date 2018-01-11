@@ -3,6 +3,7 @@
 <head>
     <meta charset=utf-8>
     <title>TESCO LOTUS LEARNING CENTER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/fonts/font.css">
     
     <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css>
@@ -23,13 +24,17 @@
         padding: 20px;
     }
 
+    .boxto.active {}
+
     input[type=text], input[type=password], label, button[type=submit] {
-        font-size: 20px;
+        font-size: 18px;
     }
 
+/*
     * {
         font-family: 'kittithada_light_45_fregular';
     }
+    */
 
     .modal-title { font-size: 28px; font-weight: 900; color: #000; }
 
@@ -78,13 +83,13 @@
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
-                            <div class="col-sm-12">
-                                <button id="btn-login" type="submit" class="col-sm-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">Login </button>
+                            <div class="col-sm-12 col-xs-12">
+                                <button id="btn-login" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">Login </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
-                                <div><a href="#" class='lnk-forget' style="font-size: 20px;">
+                                <div><a href="#" class='lnk-forget' style="display:block; text-align:center; display: none; font-size: 20px;">
                                             ลืมรหัสผ่าน
                                         </a></div>
                             </div>
@@ -119,16 +124,16 @@
                             <input id="" type="text" name="captcha" placeholder="กรุณากรอกรหัสตัวเลขที่เห็นด้านบนที่นี่" autocomplete="off" class="form-control">
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
-                            <div class="col-sm-6">
-                                <button id="btn-refresh" type="button" class="col-sm-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข </button>
+                            <div class="col-sm-6 col-xs-6">
+                                <button id="btn-refresh" type="button" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข </button>
                             </div>
-                            <div class="col-sm-6">
-                                <button id="btn-login2" type="submit" class="col-sm-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP </button>
+                            <div class="col-sm-6 col-xs-6">
+                                <button id="btn-login2" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
-                                <div><a href="#" class='lnk-login' style="font-size: 20px;">
+                                <div><a href="#" class='lnk-login' style="display: block; text-align: center; font-size: 20px;">
                                             กลับไปเข้าระบบใหม่
                                         </a></div>
                             </div>
@@ -151,24 +156,28 @@
                             <input id="login-username3" type="text" name="username3" value="" placeholder="รหัสพนักงาน" autocomplete="off" class="form-control">
                         </div>
                         <div class="input-group" style="margin-bottom: 25px;"><span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                            <input id="otp" type="text" name="otp" value="" placeholder="เลข OTP ที่ได้รับจากมือถือ" autocomplete="off" class="form-control">
+                            <input id="otp" type="text" name="otp" value="" maxlength="6" placeholder="เลข OTP ที่ได้รับจากมือถือ" autocomplete="off" class="form-control">
                         </div>
-                        <div class="input-group" style="margin-bottom: 25px; "><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="new-password" type="password" name="new_password" placeholder="รหัสผ่านใหม่" class="form-control">
-                        </div>
-                        <div class="input-group" style=""><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="confirm-password" type="password" name="confirm_password" placeholder="ยืนยันรหัสผ่าน" class="form-control">
-                        </div>
-                        <div class="input-group" style="margin-bottom: 10px;">
-                            <div class="checkbox">
-                                <label>
-                                    <input id="chkShowPassword2" type="checkbox" name="showpass" value="1"> แสดงรหัสผ่าน
-                                </label>
+
+                        <div class='boxnew' style="display: none">
+                            <div class="input-group" style="margin-bottom: 25px; "><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="new-password" type="password" name="new_password" placeholder="รหัสผ่านใหม่" class="form-control">
+                            </div>
+                            <div class="input-group" style=""><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="confirm-password" type="password" name="confirm_password" placeholder="ยืนยันรหัสผ่าน" class="form-control">
+                            </div>
+                            <div class="input-group" style="margin-bottom: 10px;">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="chkShowPassword2" type="checkbox" name="showpass" value="1"> แสดงรหัสผ่าน
+                                    </label>
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group" style="margin-top: 10px;">
-                            <div class="col-sm-12">
-                                <button id="btn-login3" type="submit" class="col-sm-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">Login </button>
+                            <div class="col-sm-12 col-xs-12">
+                                <button id="btn-login3" type="submit" disabled="disabled" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">Login </button>
                             </div>
                         </div>
 
@@ -202,21 +211,21 @@
                 $("#btn-login").prop('disabled', true);
                 
             });
+
+            $("#otp").on('keyup', function(e) {
+                var otp =  $(this).val().length;
+                if (otp == 6) {
+                    checkOtp();
+                    $("#btn-login3").html('Loading...');
+                    $("#otp").prop('disabled', true);
+                }
+            });
                             
 
             $("a.lnk-forget").hide();
             $("#btn-login").prop('disabled', true);
 
-            /*
-            $("#login-username").on('blur', function() {
-                if ($(this).val() != '') {
-                    getStatusLogin();
-                } else {
-                    $(this).focus();
-                }
-            })
-            */
-
+          
 
             $("#login-password").on('focus', function() {
                 if ($("#login-username").val() != '') {
@@ -271,16 +280,19 @@
                     return false;
                 }
 
+                $("#btn-refresh").prop('disabled', true);
+                $("#btn-login2").prop('disabled', true);
+
                 $.post($("form#forgetform").attr('action'), { captcha: $("input[name=captcha]").val() }, function(res) {
                     if (res.status == false) {
-                        /*$("#login-alert2").html('คุณกรอกเลขผิด');
-                        $("#login-alert2").show();
-                        */
-                        //alert('คุณกรอกเลขผิด');
                         getCaptcha();
                         setTimeout(function() {
                             $("#login-alert2").fadeOut();
                             $("input[name=captcha]").val('');
+
+                            $("#btn-refresh").prop('disabled', false);
+                            $("#btn-login2").prop('disabled', false);
+
                         }, 3000);
                     } else {
                         sendOtp();
@@ -327,6 +339,55 @@
             });
         }
 
+        function checkOtp()
+        {
+            var id = $("#login-username3").val();
+            var userid = '764' + id;
+            var otp = $("#otp").val();
+            var regId = /(isobar|admin)/g;
+            
+            if (id.match(regId)) {
+                var userid = id;
+            }
+            $.ajax({
+                url: 'https://backend.tescolotuslc.com/learningcenter/api/otp/check',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: 'POST',
+                data: {
+                    employee_id: userid,
+                    otp: otp,
+                },
+                success: function(res) {
+                    if (res.status == true) {
+                        $("#btn-login3").prop('disabled', false);
+                        $(".boxnew").show();
+                        $("#btn-login3").html('Login');
+                        $("#otp").prop('disabled', false);
+                        
+                    } else {
+                        getCaptcha();
+                        $("#btn-login3").prop('disabled', true);
+                        getAlert('รหัส OTP ไม่ถูกต้อง');
+                        $(".boxnew").hide();
+                        $("#btn-login3").html('Login');
+                        $("#otp").prop('disabled', false);
+                        $(".confirm").hide();
+                        $(".forget").show();
+                        $("#btn-login2").prop('disabled', false);
+                        $("#btn-refresh").prop('disabled', false);
+
+                        $("#otp").val('');
+                        $("input[name=captcha]").val('');
+                        
+
+                    }
+                } 
+            })
+
+        }
+
         function resetPassword()
         {
             var id = $("#login-username3").val();
@@ -357,7 +418,7 @@
                     if (res.status == false) {
                         
                         if (res.code =='1001') {
-                            getAlert("โปรดใส่ รหัสพนักงานและรหัสผ่านอีกครั้ง")
+                            getAlert("รหัสผ่านไม่ถูกต้อง")
                         }
 
                         if (res.code =='1005') {
@@ -443,7 +504,7 @@
                             $("#login-alert").html(res.error_msg);
                             */
 
-                            getAlert('โปรดใส่ รหัสพนักงานและรหัสผ่านใหม่อีกครั้ง');
+                            getAlert('รหัสผ่านไม่ถูกต้อง');
                             setTimeout(function() {
                                 $("#login-alert").fadeOut();
                                 $("#login-username").focus();
@@ -586,6 +647,7 @@
                                     $("#btn-login").prop('disabled', true);
                                 } else {
                                     $("a.lnk-forget").show();
+                                    $("a.lnk-forget").css('display', 'block');
                                     $("#btn-login").prop('disabled', false);
                                 }
                             }

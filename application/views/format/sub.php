@@ -45,7 +45,7 @@
                         $.each(val.department, function(key_dep, valdep) {
                             var color = valdep.course.length == 0 ? '#ccc' : val.color;
                             var href = valdep.course.length == 0 ? '#' : '<?php echo site_url('format/id/'. $this->uri->segment(3). '/'. $this->uri->segment(4));?>/' + valdep.id;
-                            var html =  '<div class="col-md-2  col-sm-3  col-xs-3">';
+                            var html =  '<div class="col-md-2  col-sm-3  col-xs-6">';
                                 html += '<a href="' + href + '" class="box" style="background-color: ' + color + '">';
                                 html +=  '<img src="' + valdep.cover + '" class="img-responsive"/>';
                                 html += '<p>' + valdep.title + ' <br>( ' + valdep.course.length + ' ) </p>';

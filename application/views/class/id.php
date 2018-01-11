@@ -1,14 +1,20 @@
     <div class='container'>
+        <div class='transfer' style=""><img src="https://www.xpressmovers.com/content/scripts/quote/img/steps-us3/loader.gif" style='margin: 0 auto; display: block;'></div>
+
+
         <div id="scorm" style="display: none; ">
         </div>
 
         <div id="vdo" style="display: none; margin-top: 5%;">
         </div>
 
-        <div id="pdf" style='display: none; overflow: scroll-x;'>
-            <div class='transfer' style=""><img src="<?php echo base_url();?>assets/images/loading.gif" style='margin: 0 auto; display: block;'></div>
 
-            <div id="show_pdf" style="display: none;">
+        <div id="html" style="display: none; margin-top: 5%;">
+        </div>
+
+        <div id="pdf" style='display: none; overflow: scroll-x;'>
+            
+            <div id="show_pdf" style="">
                 <div class='pull-left' style="flex-direction: column; width: 100%; float: left;">
                     <span style='font-size: 20px; color: #fff;'>หน้าที่ : <span style='font-size: 20px; color: #fff;' class="page_num"></span> / <span style='font-size: 20px; color: #fff;' class="page_count"></span></span>
                 </div>
@@ -37,7 +43,9 @@
                 </div>
 
                 <div class='col-md-4' id="right-menu">
-                    <button class='btn btn-default pull-right' style="font-size: 20px;" id="documents"> สารบัญ <i class='fa fa-list-ul'></i> </button> 
+                <button class='btn btn-default pull-right' style="font-size: 20px;" id="gotohome"> หน้าหลัก <i class='fa fa-home'></i> </button>  
+                    <button class='btn btn-default pull-right' style="font-size: 20px;" id="documents"> สารบัญ <i class='fa fa-list-ul'></i> </button>
+                    
                 </div>
             </div>
         </div>
@@ -73,6 +81,8 @@
     var step_documents = 0;
     var total_documents = 0;
 
+    checkCourse();
+
     $.map(data.format, function(obj) {
         if (obj.id == <?php echo $this->uri->segment(3);?>) {
 
@@ -106,9 +116,12 @@
                                         $("#scorm").show();
                                         $("#center-menu").hide();
                                         $("#right-menu").addClass('col-md-offset-4');
+                                        $(".transfer").hide();
                                     }
 
                                     if (val_course.type == 'Normal') {
+
+                                        $(".transfer").hide();
 
                                         var file = val_course.document[0].file[0].file;
                                         var reg = /\.[mp4]+$/g;
@@ -122,14 +135,23 @@
                                             $("#right-menu").addClass('col-md-offset-4');
 
                                         } else {
-                                            $("#pdf").show();
-                                            $("#pdf").css({
-                                                
-                                            });
-                                            $("#center-menu").show();
-                                            $("#right-menu").removeClass('col-md-offset-4');
+                                            var reg = /\.[html]+$/g;
+                                            if (file.match(reg)) {
+                                                $("#html").show();
+                                                $("#html").html('<iframe src=" ' + val_course.document[0].file[0].file +'" id="course-content" frameborder="0" height="100%" width="100%" style="height: 600px;"></iframe>');
+                                                 $("#center-menu").hide();
 
-                                            getDocument(val_course.document);
+                                            } else {
+                                                $("#pdf").show();
+                                                $("#pdf").css({
+                                                    
+                                                });
+                                                $("#center-menu").show();
+                                                $("#right-menu").removeClass('col-md-offset-4');
+
+                                                getDocument(val_course.document);
+                                            }
+                                            
                                         }
 
 
@@ -145,6 +167,10 @@
                                         $("#list-documents > .list-group").append(html);
 
                                     });
+
+                                    if (val_course.document.length <= 1) {
+                                        $("#left-menu").hide();
+                                    }
                                 }
                             });
                         }
@@ -153,6 +179,13 @@
             });
         }
     });
+
+
+    function checkCourse()
+    {
+
+    }
+    
 
     function changeDocument(k_index)
     {
@@ -198,9 +231,12 @@
                                             $("#scorm").show();
                                             $("#center-menu").hide();
                                             $("#right-menu").addClass('col-md-offset-4');
+                                            $(".transfer").hide();
                                         }
 
                                         if (val_course.type == 'Normal') {
+
+                                            $(".transfer").hide();
 
                                             var file = val_course.document[k_index].file[0].file;
                                             var reg = /\.[mp4]+$/g;
@@ -214,14 +250,23 @@
                                                 $("#right-menu").addClass('col-md-offset-4');
 
                                             } else {
-                                                $("#pdf").show();
-                                                $("#pdf").css({
-                                                    
-                                                });
-                                                $("#center-menu").show();
-                                                $("#right-menu").removeClass('col-md-offset-4');
 
-                                                getDocument(val_course.document, k_index);
+                                                var reg = /\.[html]+$/g;
+                                                if (file.match(reg)) {
+                                                    $("#html").show();
+                                                    $("#html").html('<iframe src=" ' + val_course.document[k_index].file[0].file +'" id="course-content" frameborder="0" height="100%" width="100%" style="height: 600px;"></iframe>');
+                                                    $("#center-menu").hide();
+
+                                                } else {
+                                                    $("#pdf").show();
+                                                    $("#pdf").css({
+                                                        
+                                                    });
+                                                    $("#center-menu").show();
+                                                    $("#right-menu").removeClass('col-md-offset-4');
+
+                                                    getDocument(val_course.document);
+                                                }
                                             }
 
 
@@ -251,17 +296,23 @@
         
 
     function getDocument(documents, index = 0) {
-        $("#footer").show();
-        $("#show_pdf").show();
-        //$('.transfer').hide();
-        setTimeout(function() {
-            $('.transfer').hide();
-        }, 3000);
+        $(".transfer").show();
+
+        $("#scorm").hide();
+        $("#scorm").html('');
+
+        $("#vdo").hide();
+        $("#vdo").html('');
+
+        $("#pdf").hide();
 
 
         // If absolute URL from the remote server is provided, configure the CORS
         // header on that server.
         var url = documents[index].file[0].file;
+
+        console.log(url);
+
 
         
 
@@ -272,9 +323,10 @@
         
         var loadingTask = PDFJS.getDocument(url);
         loadingTask.onProgress = function(progress) {
-            //$("#footer").hide();
-            
-            $("#the-canvas").show();
+           // $("#footer").hide();
+          //  $("#the-canvas").hide();
+           //  $('.transfer').show();
+
         }
 
         
@@ -284,7 +336,9 @@
         loadingTask.promise.then(function(pdf) {
             this._disableRange = true;
             $('.transfer').hide();
+            $("#pdf").show();
             $("#the-canvas").show();
+            $("#footer").show();
             
             pdfDoc = pdf;
             $(".page_count").html(pdfDoc.numPages);
@@ -333,6 +387,8 @@
         // Update page counters
         //document.getElementById('page_num').textContent = pageNum;
         $(".page_num").html(pageNum);
+        
+    
     }
 
     /**
@@ -340,11 +396,14 @@
     * finised. Otherwise, executes rendering immediately.
     */
     function queueRenderPage(num) {
-    if (pageRendering) {
-        pageNumPending = num;
-    } else {
-        renderPage(num);
-    }
+        if (pageRendering) {
+            pageNumPending = num;
+        } else {
+            renderPage(num);
+        }
+
+        $("#the-canvas").show();
+             $('.transfer').hide();
     }
 
     /**
@@ -384,6 +443,8 @@
     $("#documents").on('click', function() {
         $("#myModal").modal('show');
     });
+
+    $("#gotohome").
 
     $("#documents-prev").on('click', function() {
         var step = step_documents - 1;
