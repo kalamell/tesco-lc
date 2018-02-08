@@ -23,9 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/tesco-lc/';
-$config['base_url'] = 'https://backend.tescolotuslc.com/front/';
-
+$config['base_url'] = APP_URL;
 /*
 |--------------------------------------------------------------------------
 | Index File

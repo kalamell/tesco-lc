@@ -9,16 +9,22 @@
 
         <div class='container'>
             <div class='row'>
-                <div class='col-md-3' style="background-color: #009688; color: #fff; font-size: 24px; text-align: center;">ข้อ <span id="page">?</span> / <span id="total">?</span></div>
-                <div class='col-md-9' id="answer">
+                <div class='col-md-3 col-xs-12' style="background-color: #009688; color: #fff; font-size: 16px; text-align: center;">ข้อ <span id="page">?</span> / <span id="total">?</span></div>
+                <div class='col-md-9 col-xs-12'>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12 box-main" style="">
+                             <div  id="answer"></div>
+                        </div>
+                    </div>
+
                     
                 </div>
                 
                 
             </div>
             <div class='row'>
-                <button class='btn btn-success col-md-4 col-md-offset-3' style="display: none; font-size: 22px;" id="answer_prev" style="font-size: 22px;"><i class='fa fa-chevron-circle-left'></i> ข้อก่อนหน้า</button>
-                <button class='btn btn-success col-md-4 col-md-offset-6' id="answer_data" style="font-size: 22px;">ตอบ</button>
+                <button class='btn btn-success col-md-4 col-md-offset-3' style="display: none; font-size: 16px;" id="answer_prev" style="font-size: 16px;"><i class='fa fa-chevron-circle-left'></i> ข้อก่อนหน้า</button>
+                <button class='btn btn-success col-md-4 col-md-offset-6' id="answer_data" style="font-size: 16px;">ตอบ</button>
             </div>
 
         </div>
@@ -32,7 +38,7 @@
             <div class="modal-content">
             <div class="modal-header">
                 <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                <h4 class="modal-title" id="myModalLabel">ตรวจคำตอบ</h4>
+                <h4 class="modal-title" id="myModalLabel">ผลการสอบ</h4>
             </div>
             <div class="modal-body">
                 
@@ -48,6 +54,8 @@
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js"></script>
+    <script>var b_url = '<?php echo site_url();?>';</script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/script.js"></script>
 
     <script type="text/javascript">
     var testing = JSON.parse(window.localStorage.getItem('testing'));
@@ -66,7 +74,12 @@
 
            testing_data = val.question;
 
-           shuffle(testing_data);
+          
+
+           if (val.is_random_question == true) {
+                shuffle(testing_data);
+                console.log('random');
+            }
 
 
             
@@ -78,40 +91,58 @@
 
 
             $.each(val.question, function(inx, vq) {
+
+                
                 var id = inx + 1;
                 var title = vq.description;
                 var type = vq.type;
                 var cover = vq.cover;
+                var weight = vq.weight;
+                var question_id = vq.id;
                 var active = inx == 0 ? 'active': '';
                 $("#answer").append('<div class="box-answer ' + active + '" data-id="' + id + '" id="step-' + id +'"></div>');
 
                 $("#answer #step-" + id ).append('<h3 class="title-choice">' + title + '</h3>');
 
                 if (cover !== null ) {
-                    $("#answer #step-" + id ).append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /> <font color="red" style="font-size: 30px;">** คลิกที่รูปเพื่อขยายภาพ</font></a></p>');
+                    $("#answer #step-" + id ).append('<p><a href="' + cover + '" class="fancybox"><img class="img-responsive" style="width: 200px;" src="' + cover + '" /> <font color="red" style="font-size: 16px;">** คลิกที่รูปเพื่อขยายภาพ</font></a></p>');
                 }
 
-                if (type == 'abcd') {
-                    abcd(vq.answer, id);
+                if (vq.is_random_answer == true) {
+                    shuffle(vq.answer);
                 }
 
-                if (type == 'yes/no') {
-                    yesno(vq.correct_answer, id);
-                }
+                console.log(vq);
+
+
+                setTimeout(function() {
+
+
+                    if (type == 'abcd') {
+                        abcd(vq.answer, id, weight, question_id);
+                    }
+
+                    if (type == 'yes/no') {
+                        yesno(vq.correct_answer, id, weight, question_id);
+                    }
+
+                }, 300);
             });
 
             //return false;
         }
     });
 
-    function abcd(answer, inx) {
+    function abcd(answer, inx, weight, question_id) {
         
         var html = '<ol class="abcd">';
         var choice = ['ก.) ','ข.) ', 'ค.) ', 'ง.) ']
         $.each(answer, function(key, val) {
+           console.log(val);
             html +='<li>';
-            html +='<label style="cursor: pointer"><input type="radio" name="choice' + inx + '" value="' + val.is_correct + '"/> ' + choice[key] + val.text;
-            html +='</label>';
+            html +='<label id="choice' + inx + key + '" style="cursor: pointer; padding-bottom: 5px;"><input type="radio" data-question="' + question_id +'" data-type="abcd" data-weight="' + weight +'" id="choice'+inx + key +'" name="choice' + inx + '" value="' + val.is_correct + '"/> ' + choice[key] + val.text;
+//            html +='</label>';
+            html +=' <<< ' + val.is_correct+'</label>';
             html +='</li>';
         });
         html +='</ol>';
@@ -119,7 +150,7 @@
 
     }
 
-    function yesno(answer, inx) {
+    function yesno(answer, inx, weight, question_id) {
         
         var html = '<ol class="abcd">';
         var ans1 = 'true';
@@ -132,12 +163,12 @@
             ans2 = 'true';
         }
         html +='<li>';
-        html +='<label style="cursor: pointer"><input type="radio"  name="choice' + inx + '" value="' + ans1 + '"/> ใช่';
+        html +='<label style="cursor: pointer"><input type="radio" data-type="yes/no" data-question="' + question_id +'"  data-weight="' + weight + '" name="choice' + inx + '" value="' + ans1 + '"/> ใช่';
         html +='</label>';
         html +='</li>';
 
         html +='<li>';
-        html +='<label style="cursor: pointer"><input type="radio"  name="choice' + inx + '" value="' + ans2 + '"/> ไม่ใช่';
+        html +='<label style="cursor: pointer"><input type="radio" data-type="yes/no" data-question="' + question_id +'"  data-weight="' + weight + '"  name="choice' + inx + '" value="' + ans2 + '"/> ไม่ใช่';
         html +='</label>';
         html +='</li>';
 
@@ -201,15 +232,39 @@
 
     function sendTesting()
     {
-        $("#myModal").modal('show')     
+        $("#myModal").modal('show');
+
+        
     }
+
+
 
     $("#myModal").on('show.bs.modal', function(e) {
         var total = 0;
+
+        var data_choise = [];
         $.each($('input[type=radio]:checked'), function(key, val) {
+            var weight = $(val).attr('data-weight');
+            var type = $(val).attr('data-type');
+            var question_id = $(val).attr('data-question');
+
+            console.log(weight, type, question_id);
+            var correct = false;
             if ($(val).val() == 'true') {
                 total++;
+                correct = true;
             }
+
+            var value = {
+                question_id: question_id,
+                answer_id: key,
+                is_correct: correct,
+                type: type,
+                weight: weight,
+                time_spent: 25
+            }
+            data_choise.push(value);
+
         });
         
         var testing_score = parseInt(total) / parseInt(total_page);
@@ -226,20 +281,76 @@
         }
 
 
-        var img = '<img style="width: 120px;" src="' + src + '" />';
+        var img = '<img style="" class="h-img" src="' + src + '" />';
         $(".modal-body").append('<p style="text-align: center;">' + img + '</p>');
 
-        $(".modal-body").append('<h1 style="text-align: center; font-size: 40px; color:' + color +'">' + title + '</h1>');
+        $(".modal-body").append('<h1 class="h-testing" style="text-align: center; color:' + color +'">' + title + '</h1>');
 
-        var msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;">คุณทำได้ <font style="color:' + color + '; font-weight: bold;">' + total + '</font> คะแนน จากทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> คะแนน คิดเป็น <font style="color:' + color + '; font-weight: bold;">' + testing_score.toFixed(2) +'%</font></p>';
+        var msg = '<p style="text-align: center; font-size: 1.2em; font-weight: bold;">คุณทำได้ <font style="color:' + color + '; font-weight: bold;">' + total + '</font> คะแนน จากทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> คะแนน คิดเป็น <font style="color:' + color + '; font-weight: bold;">' + testing_score.toFixed(2) +'%</font></p>';
         $(".modal-body").append(msg);
 
-        msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;">จำนวนคำถามทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> ข้อ</p>';
+        msg = '<p style="text-align: center; font-size: 1.1em; font-weight: bold;">จำนวนคำถามทั้งหมด <font style="color:' + color + '; font-weight: bold;">' + total_page + '</font> ข้อ</p>';
         $(".modal-body").append(msg);
-        msg = '<p style="text-align: center; font-size: 30px; font-weight: bold;"><font style="color:' + color + '; font-weight: bold;">' + title2 + ' ' + target_percentage + '%</font></p>';
+        msg = '<p style="text-align: center; font-size: 1.1em; font-weight: bold;"><font style="color:' + color + '; font-weight: bold;">' + title2 + ' ' + target_percentage + '%</font></p>';
         $(".modal-body").append(msg);
+
+
+        var token =  JSON.parse(window.localStorage.getItem('token'));
+
+        var data_val = {
+            user_id: "<?php echo $this->session->userdata('id');?>",
+            course_id: "<?php echo $this->uri->segment(4);?>",
+            testing_id: "<?php echo $this->uri->segment(3);?>",
+            target_percentage : target_percentage,
+            is_success: true,
+            answer_data: data_choise
+
+        }
+
+        $.ajax({
+            url: 'https://backend.tescolotuslc.com/learningcenter/api/log',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: 'POST',
+            data: {
+                "token": token,
+                "action": 'complete',
+                "module": 'testing',
+                "data": JSON.stringify(data_val),
+            },
+            success: function(res) {
+                
+                listTesting();
+            } 
+        }) 
+
+
 
     });
+
+    function listTesting()
+    {
+        var user_id = <?php echo $this->session->userdata('id');?>;
+        var token = "<?php echo $this->session->userdata('token');?>";
+        window.localStorage.removeItem('testing');
+        $.ajax({
+            url: 'https://backend.tescolotuslc.com/learningcenter/api/testing/get',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: 'POST',
+            data: {
+                token: token,
+                user_id: user_id
+            },
+            success: function(res) {
+                window.localStorage.removeItem('testing');
+                window.localStorage.setItem('testing', JSON.stringify(res));
+            }
+        })
+        
+    }
 
     $(function() {
         $(".fancybox").fancybox();
@@ -256,7 +367,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
                 <h4 class="modal-title" id="">คำเตือน</h4>
             </div>
-            <div class="modal-body" style="font-size: 24px;">
+            <div class="modal-body" style="font-size: 16px;">
                 กรุณาเลือกคำตอบ
             </div>
             <div class="modal-footer" style="text-align: right;">

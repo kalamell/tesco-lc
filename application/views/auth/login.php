@@ -31,6 +31,9 @@
     }
 
 /*
+26262626
+2wsx#EDC
+
     * {
         font-family: 'kittithada_light_45_fregular';
     }
@@ -84,7 +87,7 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-sm-12 col-xs-12">
-                                <button id="btn-login" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">Login </button>
+                                <button id="btn-login" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">เข้าสู่ระบบ </button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -205,6 +208,12 @@
             window.localStorage.removeItem('token');
             window.localStorage.removeItem('data');
             window.localStorage.removeItem('welcome');
+            window.localStorage.removeItem('testing');
+
+            var token = '';
+            var user_id = '';
+
+            var data_user = {};
 
             $("#login-username").on('focus', function() {
                 $("a.lnk-forget").hide();
@@ -348,7 +357,19 @@
             
             if (id.match(regId)) {
                 var userid = id;
+            } else {
+                //console.log(id.length);
+                if (id.length == 6) {
+                    userid = '00' + id;
+                }
+                if (id.length == 7) {
+                    userid = '0' + id;
+                }
             }
+
+           
+
+            
             $.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/otp/check',
                 headers: {
@@ -360,13 +381,38 @@
                     otp: otp,
                 },
                 success: function(res) {
+                    console.log(res);
+
                     if (res.status == true) {
                         $("#btn-login3").prop('disabled', false);
                         $(".boxnew").show();
                         $("#btn-login3").html('Login');
                         $("#otp").prop('disabled', false);
+
+                        token = res.token;
+                        user_id = res.user_id;
+
+                        
+                        data_user = {
+                            user_id: res.user_id,
+                            employee_id: userid,
+                            firstname: res.firstname,
+                            lastname: res.lastname,
+                            fullname: res.user.usage,
+                            token: token
+                        }
+
+                        
+
+
+                        window.localStorage.setItem('token', JSON.stringify(res.token));
+                        window.localStorage.setItem('data', JSON.stringify(res.data));
+                        window.localStorage.setItem('welcome', JSON.stringify(res.welcome));
+
+                        window.localStorage.setItem('user', JSON.stringify(data_user));
                         
                     } else {
+                        
                         getCaptcha();
                         $("#btn-login3").prop('disabled', true);
                         getAlert('รหัส OTP ไม่ถูกต้อง');
@@ -385,6 +431,7 @@
                     }
                 } 
             })
+            
 
         }
 
@@ -398,23 +445,32 @@
             
             if (id.match(regId)) {
                 var userid = id;
+            } else {
+                //console.log(id.length);
+                if (id.length == 6) {
+                    userid = '00' + id;
+                }
+                if (id.length == 7) {
+                    userid = '0' + id;
+                }
             }
 
             $("#btn-login3").prop('disabled', true);
             $("#btn-login3").html('กำลังดำเนินการรอสักครู่');   
 
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/otp/login',
+                url: 'https://backend.tescolotuslc.com/learningcenter/api/user/password',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
                 method: 'POST',
                 data: {
-                    employee_id: userid,
-                    otp: otp,
+                    user_id: user_id,
+                    token: token,
                     password: password
                 },
                 success: function(res) {
+                    
                     if (res.status == false) {
                         
                         if (res.code =='1001') {
@@ -431,29 +487,39 @@
                         }
 
                         if (res.code =='1004') {
-                            getAlert("โปรดใส่รหัส OTP ใหม่อีกครั้ง หรือขอรหัส OTP ใหม่");
+                            getAlert("รหัสผ่านนี้เคยตั้งไปแล้วโปรดตั้งรหัสผ่านใหม่");
                             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
                         }
 
-                        /*$("#login-alert3").html(res.error_msg);
-                        $("#login-alert3").show();
-                        */
+                       
                         $("#btn-login3").prop('disabled', false);
                         $("#btn-login3").html('Login');   
                     } else {
                         //console.log(res);
                         $("#btn-login3").html('กำลังเข้าสู่ระบบ');    
+
+
+
+                        var data = JSON.parse(window.localStorage.getItem('data'));
+
+
+                        
                         $.post('<?php echo site_url('auth/setaccount');?>', {
-                            'user_id': res.user_id,
+                            'user_id': data_user.user_id,
                             'employee_id': userid,
-                            'firstname': res.firstname,
-                            'lastname': res.lastname,
-                            'fullname': res.user.usage,
-                            'token': res.token
-                        }, function() {
+                            'firstname': data_user.firstname,
+                            'lastname': data_user.lastname,
+                            'fullname': data_user.fullname,
+                            'token': data_user.token
+                        }, function(res) {
+
+                            console.log(res);
+
+                            /*
                             window.localStorage.setItem('token', JSON.stringify(res.token));
                             window.localStorage.setItem('data', JSON.stringify(res.data));
                             window.localStorage.setItem('welcome', JSON.stringify(res.welcome));
+                            */
                             setTimeout(function() {
                                 window.top.location.reload();
                             }, 1000);
@@ -461,12 +527,14 @@
                         });
                         
                     }
+                    
+
                 } 
             })
         }
 
-        function login()
-        {
+        function login() {
+            //3200099
             var username = $("#login-username").val();
             var password = $("#login-password").val();
 
@@ -479,6 +547,14 @@
             
             if (id.match(regId)) {
                 var userid = id;
+            } else {
+                //console.log(id.length);
+                if (id.length == 6) {
+                    userid = '00' + id;
+                }
+                if (id.length == 7) {
+                    userid = '0' + id;
+                }
             }
 
 
@@ -553,6 +629,19 @@
                         }
                     } else {
                         //console.log(res);
+
+                        data_user = {
+                            user_id: res.user_id,
+                            employee_id: userid,
+                            firstname: res.firstname,
+                            lastname: res.lastname,
+                            fullname: res.user.usage,
+                            token: res.token,
+                        }
+
+                        
+
+
                         $("#btn-login").html('กำลังเข้าสู่ระบบ');    
                         $.post('<?php echo site_url('auth/setaccount');?>', {
                             'user_id': res.user_id,
@@ -562,9 +651,12 @@
                             'fullname': res.firstname_thai + ' ' + res.lastname_thai,
                             'token': res.token
                         }, function() {
+
                             window.localStorage.setItem('token', JSON.stringify(res.token));
                             window.localStorage.setItem('data', JSON.stringify(res.data));
                             window.localStorage.setItem('welcome', JSON.stringify(res.welcome));
+
+                            window.localStorage.setItem('user', JSON.stringify(data_user));
                             setTimeout(function() {
                                 window.top.location.reload();
                             }, 1000);
@@ -576,14 +668,21 @@
             })
         }
 
-        function getStatusLogin()
-        {
+        function getStatusLogin() {
             var id = $("#login-username").val();
             var userid = '764' + id;
             var regId = /(isobar|admin)/g;
 
             if (id.match(regId)) {
                 var userid = id;
+            } else {
+                //console.log(id.length);
+                if (id.length == 6) {
+                    userid = '00' + id;
+                }
+                if (id.length == 7) {
+                    userid = '0' + id;
+                }
             }
 
             $.ajax({
@@ -602,7 +701,8 @@
                         $("#login-alert").html(res.error_msg);
                         */
                         //alert(res.error_msg);
-                        getAlert(res.error_msg);
+                        //getAlert(res.error_msg);
+                        getAlert('รหัสพนักงานนี้ไม่มีในระบบ');
 
                         setTimeout(function() {
                             $("#login-alert").fadeOut();
@@ -657,8 +757,7 @@
             })
         }
 
-        function sendOtp() 
-        {
+        function sendOtp() {
             //http://backend.tescolotuslc.com/learningcenter/api/otp/get
 
             var id = $("#login-username").val();
@@ -667,6 +766,14 @@
 
             if (id.match(regId)) {
                 var userid = id;
+            } else {
+                //console.log(id.length);
+                if (id.length == 6) {
+                    userid = '00' + id;
+                }
+                if (id.length == 7) {
+                    userid = '0' + id;
+                }
             }
 
            
@@ -691,8 +798,13 @@
 
         }
 
-        function getAlert(msg, error = false)
-        {
+
+    
+        function getAlert(msg,error) {
+            if(error === undefined) {
+              error = false;
+           }
+
             $("#myModal").modal('show');
 
             if (error == false) {
@@ -702,6 +814,8 @@
             $(".modal-body").html(msg);
         }
 
+
+        
         $("#myModal").on('show.bs.modal', function () {
 
         })

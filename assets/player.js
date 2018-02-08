@@ -1,4 +1,4 @@
-var API = new playerAPI12();
+
 function playerAPI12() {
     that = this;
     this.sco = 'default';
@@ -70,8 +70,7 @@ function playerAPI12() {
 
     this.LMSInitialize = function () {
 
-        console.log('LMSInitialize');
-
+        
         if (that.initialized)
             return that.lastError = 101, 'false';
 
@@ -89,7 +88,7 @@ function playerAPI12() {
         that.lastError = 0;
         that.initialized = false;
 
-        top.location.reload();
+        //top.location.reload();
         
         return 'true';
     };
@@ -211,6 +210,8 @@ function playerAPI12() {
     this.model = this.defaultModel;
     this.data = this.store();
 }
+
+
 
 
 var API_1484_11 = new playerAPI2004();

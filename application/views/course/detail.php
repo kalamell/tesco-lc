@@ -54,7 +54,7 @@
                             
                             $.each(valdep.course, function(key_course, val_course) {
                                 if (val_course.id == <?php echo $this->uri->segment(6);?>) {
-                                    console.log(val_course);
+                                    //console.log(val_course);
 
                                     $("#myModalLabel").html('หลักสูตร :' + val_course.name);
                                     $("p.description").html('รายละเอียด :<br>' + val_course.description);
@@ -86,7 +86,7 @@
             $("#create_single").html('กำลังดำเนินการรอสักครู่');   
             $("#create_group").prop('disabled', true);
 
-            /*$.ajax({
+            $.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -99,14 +99,17 @@
                     student_id_list: users
                 },
                 success: function(res) {
-                    $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป');   
+                    
+                    setTimeout(function() {
+                        $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
+                        top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6));?>/' + res.class_id;
+                    }, 1000);
+
+
                     console.log(res);
                 } 
-            })*/
-            setTimeout(function() {
-                $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
-                top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6).'/0001');?>';
-            }, 1000);
+            })
+            
 
 
         })
@@ -125,7 +128,7 @@
         $("#save_group").on('click', function() {
             $("#save_group").prop('disabled', true);
             $("#save_group").html('กำลังดำเนินการรอสักครู่');   
-            /*
+            
             $.ajax({
                 url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
                 headers: {
@@ -140,13 +143,19 @@
                 },
                 success: function(res) {
                     $("#save_group").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป');   
-                    console.log(res);
+                    setTimeout(function() {
+                        $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
+                        top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6));?>/' + res.class_id;
+                    }, 1000);
+
                 } 
-            })*/
+            })
+            /*
             setTimeout(function() {
                 $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
                 top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6).'/0001');?>';
             }, 1000);
+            */
 
         })
 

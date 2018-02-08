@@ -19,11 +19,11 @@ class Auth extends CI_Controller
             'img_path'      => './assets/captcha/',
             'img_url'       => base_url('assets/captcha'),
             'font_path'     => base_url(). 'system/fonts/texb.ttf',
-            'img_width'     => '100',
-            'img_height'    => 50,
+            'img_width'     => '150',
+            'img_height'    => '30',
             'expiration'    => 300,
             'word_length'   => 4,
-            'font_size'     => 500,
+            'font_size'     => 16,
             'img_id'        => 'Imageid',
             'pool'          => '0123456789',
     
@@ -102,6 +102,7 @@ class Auth extends CI_Controller
                 'name' => $this->input->post('firstname').' '.$this->input->post('lastname'),
                 'token' => $this->input->post('token')
             ));
+            
         }
     }
 

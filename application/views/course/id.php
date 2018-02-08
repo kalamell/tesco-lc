@@ -8,6 +8,15 @@
         </ol>
 	</div>
 
+
+    <div class="container-fluid">
+        <div class='row'>
+            <div class='col-md-12'>
+                <a class="btn btn-success btn-back" href="#" style="font-size: 30px; color: #fff;    background-color: #019b79;    border-color: #019b79;"><</a>
+            </div>
+        </div>
+    </div>  
+
     <div class='container'>
         <div class='row' id="main">
             <p>Loading...</p>
@@ -27,7 +36,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="create_single"><i class="fa fa-user"></i> ลงทะเบียนเรียนเดี่ยว</button>
-                <button type="button" class="btn btn-success" id="create_group"><i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม</button>
+                <?php 
+                if ($this->uri->segment(4) != 65):?>
+                    <button type="button" class="btn btn-success" id="create_group"><i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม</button>
+                <?php endif;?>
                 <button type="button" style="display: none; width: 200px;" class="btn btn-success" id="save_group"><i class="fa fa-floppy-o"></i> บันทึก</button>
             </div>
             </div>
@@ -36,7 +48,15 @@
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <script>var b_url = '<?php echo site_url();?>';</script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/script.js"></script>
     <script>
+
+        $("a.btn-back").on('click', function() {
+            top.location.href = '<?php echo site_url('format/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4));?>';
+        })
+
+
         var data = JSON.parse(window.localStorage.getItem('data'));
         $.map(data.format, function(obj) {
             if (obj.id == <?php echo $this->uri->segment(3);?>) {
@@ -51,7 +71,7 @@
                                 $("li.active").text(valdep.title);                                
                                 $.each(valdep.course, function(key_course, val_course) {
                                     var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + valdep.id + '/' + val_course.id;
-                                    var html =  '<div class="col-md-2 col-sm-3  col-xs-3" id="c' + val_course.id +'">';
+                                    var html =  '<div class="col-md-2 col-sm-3  col-xs-6 box2" id="c' + val_course.id +'">';
                                     html += '<a data-toggle="modal" data-remote="false" data-target="#myModal" href="' + href + '" class="book">';
                                     html += '<p>' + val_course.name + '  </p>';
                                     html += '</a>';

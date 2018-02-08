@@ -7,6 +7,15 @@
         </ol>
 	</div>
 
+
+    <div class="container-fluid">
+        <div class='row'>
+            <div class='col-md-12'>
+                <a class="btn btn-success btn-back" href="#" style="font-size: 30px; color: #fff;    background-color: #019b79;    border-color: #019b79;"><</a>
+            </div>
+        </div>
+    </div>  
+
     <div class='container'>
         <div class='row' id="main">
             <p>Loading...</p>
@@ -19,7 +28,15 @@
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <script>var b_url = '<?php echo site_url();?>';</script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/script.js"></script>
     <script>
+
+        $("a.btn-back").on('click', function() {
+            top.location.href = '<?php echo site_url('format/id/'.$this->uri->segment(3));?>';
+        })
+
+
         var data = JSON.parse(window.localStorage.getItem('data'));
         $.map(data.format, function(obj) {
             if (obj.id == <?php echo $this->uri->segment(3);?>) {
@@ -45,7 +62,7 @@
                         $.each(val.department, function(key_dep, valdep) {
                             var color = valdep.course.length == 0 ? '#ccc' : val.color;
                             var href = valdep.course.length == 0 ? '#' : '<?php echo site_url('format/id/'. $this->uri->segment(3). '/'. $this->uri->segment(4));?>/' + valdep.id;
-                            var html =  '<div class="col-md-2  col-sm-3  col-xs-6">';
+                            var html =  '<div class="col-md-2  col-sm-3  col-xs-4 box2">';
                                 html += '<a href="' + href + '" class="box" style="background-color: ' + color + '">';
                                 html +=  '<img src="' + valdep.cover + '" class="img-responsive"/>';
                                 html += '<p>' + valdep.title + ' <br>( ' + valdep.course.length + ' ) </p>';

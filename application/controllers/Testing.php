@@ -8,7 +8,7 @@ class Testing extends Base {
     	$this->render('testing/index');
     }
 
-    public function id($testing_id)
+    public function id($testing_id, $course_id)
     {
     	$this->render('testing/id');
     }

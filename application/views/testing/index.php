@@ -43,6 +43,8 @@
 
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
+    <script>var b_url = '<?php echo site_url();?>';</script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/script.js"></script>
 
     <script type="text/javascript">
 
@@ -75,7 +77,7 @@
                         $("#testing").html('');
                         if (res.status == true) {
                             $.each(res.testing, function(key, val) {
-                                var href = '<?php echo site_url('testing');?>/data/' + val.id;
+                                var href = '<?php echo site_url('testing');?>/data/' + val.id + '/' + val.course_id;
 
                                 var html = '<a href="' + href +'" data-toggle="modal" data-remote="false" data-target="#myModal" class="list-group-item"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;' + val.title + '</a>';
                                 $("#testing").append(html);
@@ -86,7 +88,7 @@
             } else {
                 $("#testing").html('');
                 $.each(testing.testing, function(key, val) {
-                    var href = '<?php echo site_url('testing');?>/data/' + val.id;
+                    var href = '<?php echo site_url('testing');?>/data/' + val.id + '/' + val.course_id;
                     var html = '<a href="' + href +'"  data-toggle="modal" data-remote="false" data-target="#myModal" class="list-group-item"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;' + val.title + '</a>';
                     $("#testing").append(html);
                 });
