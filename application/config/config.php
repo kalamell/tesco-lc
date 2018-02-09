@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = APP_URL;
-$config['version'] = '3.5';
+$config['version'] = '3.0';
 $config['api'] = 'https://backend.tescolotuslc.com/learningcenterdev35';
 $config['path'] = 'https://backend.tescolotuslc.com/learningcenter';
 /*
