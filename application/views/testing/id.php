@@ -308,7 +308,7 @@
         }
 
         $.ajax({
-            url: 'https://backend.tescolotuslc.com/learningcenter/api/log',
+            url: '<?php echo $this->config->item('api');?>/api/log',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
@@ -335,7 +335,7 @@
         var token = "<?php echo $this->session->userdata('token');?>";
         window.localStorage.removeItem('testing');
         $.ajax({
-            url: 'https://backend.tescolotuslc.com/learningcenter/api/testing/get',
+            url: '<?php echo $this->config->item('api');?>/api/testing/get',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },

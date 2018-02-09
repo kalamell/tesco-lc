@@ -87,7 +87,7 @@
             $("#create_group").prop('disabled', true);
 
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
+                url: '<?php echo $this->config->item('api');?>/api/class/create',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -130,7 +130,7 @@
             $("#save_group").html('กำลังดำเนินการรอสักครู่');   
             
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/class/create',
+                url: '<?php echo $this->config->item('api');?>/api/class/create',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -172,7 +172,7 @@
                 $("#save_group").prop('disabled', true);
                 $("tbody#data-group").append('<tr class="add-data"><td colspan="3">กำลังตรวจสอบข้อมูล</td></tr>');
                 $.ajax({
-                    url: 'https://backend.tescolotuslc.com/learningcenter/api/user/get',
+                    url: '<?php echo $this->config->item('api');?>/api/user/get',
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },

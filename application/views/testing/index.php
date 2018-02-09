@@ -62,7 +62,7 @@
             if (testing == null) {
                 window.localStorage.removeItem('testing');
                 $.ajax({
-                    url: 'https://backend.tescolotuslc.com/learningcenter/api/testing/get',
+                    url: '<?php echo $this->config->item('api');?>/api/testing/get',
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },

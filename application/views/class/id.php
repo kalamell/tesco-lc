@@ -355,7 +355,7 @@
     if (v.type.match(reg)) {
         var file = v.file;
         var file = encodeURI(v.file);
-        var file_scorm = file.replace("https://backend.tescolotuslc.com/learningcenter/", "https://www.tescolotuslc.com:88/");
+        var file_scorm = file.replace("<?php echo $this->config->item('api');?>/", "https://www.tescolotuslc.com:88/");
 
        // www.tescolotusl.com/storage/xxx 
 
@@ -901,7 +901,7 @@
             
 
                 $.ajax({
-                    url: 'https://backend.tescolotuslc.com/learningcenter/api/log',
+                    url: '<?php echo $this->config->item('api');?>/api/log',
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
@@ -961,7 +961,7 @@
 
         window.localStorage.removeItem('testing');
         $.ajax({
-            url: 'https://backend.tescolotuslc.com/learningcenter/api/testing/get',
+            url: '<?php echo $this->config->item('api');?>/api/testing/get',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
@@ -1015,7 +1015,7 @@
                 API.LMSGetDiagnostic = LMSGetDiagnostic;
                 API.LMSGetErrorString = LMSGetErrorString;
 
-               // window.open("https://backend.tescolotuslc.com/learningcenter/storage/document/2018/02/09/07/228e/FM%20Wastewater%20Treatment%20(EN%20sub)%20-%20Storyline%20output/story.html", "popupname","resizable,scrollbars,status");
+               // window.open("<?php echo $this->config->item('api');?>/storage/document/2018/02/09/07/228e/FM%20Wastewater%20Treatment%20(EN%20sub)%20-%20Storyline%20output/story.html", "popupname","resizable,scrollbars,status");
             }
             function LMSInitialize(initializeInput) {
                 displayLog("LMSInitialize: " + initializeInput);
