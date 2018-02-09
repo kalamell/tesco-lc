@@ -73,27 +73,27 @@
                     <div id="login-alert" class="alert alert-danger col-sm-12" style="display: none;"></div>
                     <?php echo form_open('auth/login', array('id' => 'loginform', 'role' => 'form', 'class' => 'form-horizontal'));?>
                         <div class="input-group" style="margin-bottom: 25px;"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="login-username" type="text" name="username" value="" placeholder="รหัสพนักงาน" autocomplete="off" class="form-control">
+                            <input id="login-username" type="text" name="username" value="" placeholder="รหัสพนักงาน / Employee ID" autocomplete="off" class="form-control">
                         </div>
                         <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="login-password" type="password" name="password" placeholder="รหัสผ่าน" class="form-control">
+                            <input id="login-password" type="password" name="password" placeholder="รหัสผ่าน / Password" class="form-control">
                         </div>
                         <div class="input-group" style="margin-bottom: 10px;">
                             <div class="checkbox">
                                 <label>
-                                    <input id="chkShowPassword1" type="checkbox" name="showpass" value="1"> แสดงรหัสผ่าน
+                                    <input id="chkShowPassword1" type="checkbox" name="showpass" value="1"> แสดงรหัสผ่าน / Show password
                                 </label>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-sm-12 col-xs-12">
-                                <button id="btn-login" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">เข้าสู่ระบบ </button>
+                                <button id="btn-login" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">เข้าสู่ระบบ / Login </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
                                 <div><a href="#" class='lnk-forget' style="display:block; text-align:center; display: none; font-size: 20px;">
-                                            ลืมรหัสผ่าน
+                                            ลืมรหัสผ่าน / Forget password
                                         </a></div>
                             </div>
                         </div>
@@ -128,16 +128,16 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-sm-6 col-xs-6">
-                                <button id="btn-refresh" type="button" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข </button>
+                                <button id="btn-refresh" type="button" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข / Change </button>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <button id="btn-login2" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP </button>
+                                <button id="btn-login2" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP / Request OTP </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
                                 <div><a href="#" class='lnk-login' style="display: block; text-align: center; font-size: 20px;">
-                                            กลับไปเข้าระบบใหม่
+                                            กลับไปเข้าระบบใหม่ / Login
                                         </a></div>
                             </div>
                         </div>
@@ -371,7 +371,7 @@
 
             
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/otp/check',
+                url: '<?php echo $this->config->item('api');?>/api/otp/check',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -459,7 +459,7 @@
             $("#btn-login3").html('กำลังดำเนินการรอสักครู่');   
 
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/user/password',
+                url: '<?php echo $this->config->item('api');?>/api/user/password',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -560,7 +560,7 @@
 
 
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/login',
+                url: '<?php echo $this->config->item('api');?>/api/login',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -686,7 +686,7 @@
             }
 
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/GetLoginStatus',
+                url: '<?php echo $this->config->item('api');?>/api/GetLoginStatus',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
@@ -778,7 +778,7 @@
 
            
             $.ajax({
-                url: 'https://backend.tescolotuslc.com/learningcenter/api/otp/get',
+                url: '<?php echo $this->config->item('api');?>/api/otp/get',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },

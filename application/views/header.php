@@ -360,10 +360,10 @@
 					<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-align-justify"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="<?php echo site_url();?>"><i class='fa fa-home'></i> หน้าหลัก</a></li>
-						<li><a href="<?php echo site_url('testing');?>"><i class='fa fa-edit'></i> ทำแบบทดสอบ</a></li>
+						<li><a href="<?php echo site_url();?>"><i class='fa fa-home'></i> หน้าหลัก / Home</a></li>
+						<li><a href="<?php echo site_url('testing');?>"><i class='fa fa-edit'></i> ทำแบบทดสอบ / Testing</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="<?php echo site_url('auth/logout');?>" onclick="return confirm('คุณต้องการออกจากระบบหรือไม่ ?');"><i class='fa fa-sign-out'></i> ออกจากระบบ</a></li>
+						<li><a href="<?php echo site_url('auth/logout');?>" onclick="return confirm('คุณต้องการออกจากระบบหรือไม่ ?');"><i class='fa fa-sign-out'></i> ออกจากระบบ / Logout</a></li>
 					</ul>
 					</li>
 				</ul>
@@ -374,10 +374,10 @@
 					<ul class="nav navbar-nav navbar-right" style="margin-top: 8px">
 						<li><a href="#"><?php echo $this->session->userdata('fullname');?></a></li>
 
-							<li><a href="<?php echo site_url();?>"><i class='fa fa-home'></i> หน้าหลัก</a></li>
-							<li><a href="<?php echo site_url('testing');?>"><i class='fa fa-edit'></i> ทำแบบทดสอบ</a></li>
+							<li><a href="<?php echo site_url();?>"><i class='fa fa-home'></i> หน้าหลัก / Home</a></li>
+							<li><a href="<?php echo site_url('testing');?>"><i class='fa fa-edit'></i> ทำแบบทดสอบ / Testing</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="<?php echo site_url('auth/logout');?>" onclick="return confirm('คุณต้องการออกจากระบบหรือไม่ ?');"><i class='fa fa-sign-out'></i> ออกจากระบบ</a></li>
+							<li><a href="<?php echo site_url('auth/logout');?>" onclick="return confirm('คุณต้องการออกจากระบบหรือไม่ ?');"><i class='fa fa-sign-out'></i> ออกจากระบบ / Logout</a></li>
 
 					</ul>
 				</div>

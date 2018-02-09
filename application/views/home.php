@@ -8,14 +8,14 @@
 
 		<div class='row'>
 			<div class='col-md-4'>
-				<h2>เลือกฟอร์แมท ( Format ) ของคุณ</h2>
+				<h2>เลือกฟอร์แมทของคุณ / Your format</h2>
 				<!--<div class='list-group' id="format">
 				</div>-->
 				<select class="selectpicker" id="format">
 				</select>
 
 				<br><br>
-				<a href="#" id="btn-next" class='btn btn-success' style="font-size: 20px; width: 200px;">ถัดไป <i class='fa fa-next'></i></a>
+				<a href="#" id="btn-next" class='btn btn-success' style="font-size: 20px; width: 200px;">ถัดไป / Next <i class='fa fa-next'></i></a>
 
 
 
