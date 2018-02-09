@@ -46,6 +46,43 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
+                <h4 class="modal-title" id="myModalLabel">คำอธิบาย</h4>
+            </div>
+            <div class="modal-body">
+                <p>ในช่วงที่ผ่านมา คุณได้ปฏิบัติงานอย่างถูกต้องใช่หรือไม่ ? </p>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="learn" value="Y"> ใช่
+                    </label>
+                    
+                </div>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="learn" value="N"> ไม่ใช่
+                    </label>
+                </div>
+
+                <div class="form-group" id="msg" style="display: none;">
+                    <p>หากตอบไม่ใช่ จงอธิบาย</p>
+                    <textarea name="msg" class="form-control" rows="5"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" style="width: 200px;" class="btn btn-success" id="save_group2"><i class="fa fa-floppy-o"></i> บันทึก</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
     <script>var b_url = '<?php echo site_url();?>';</script>
@@ -54,6 +91,33 @@
 
         $("a.btn-back").on('click', function() {
             top.location.href = '<?php echo site_url('format/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4));?>';
+        });
+
+        $("input[name=learn]").on('click', function() {
+            var val = $(this).val();
+            if (val == 'N') {
+                $("#msg").show();
+            } else {
+                $("#msg").hide();
+            }
+        });
+
+
+        $("#save_group2").on('click', function() {
+            var learn = $("input[name=learn]:checked").val();
+
+            if (learn == 'N') {
+                if ($("textarea[name=msg]").val() == '') {
+                    $("textarea[name=msg]").focus();
+                } else {
+                    $("textarea").val('');
+                    $("#myModal2").modal('hide');
+                }
+            } else {
+
+                console.log('xx');
+                $("#myModal2").modal('hide');
+            }
         })
 
 
@@ -72,7 +136,8 @@
                                 $.each(valdep.course, function(key_course, val_course) {
                                     var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + valdep.id + '/' + val_course.id;
                                     var html =  '<div class="col-md-2 col-sm-3  col-xs-6 box2" id="c' + val_course.id +'">';
-                                    html += '<a data-toggle="modal" data-remote="false" data-target="#myModal" href="' + href + '" class="book">';
+                                    var target = "<?php echo $this->uri->segment(4) == '65' ? '#myModal2': '#myModal';?>";
+                                    html += '<a data-toggle="modal" data-remote="false" data-target="' + target + '" href="' + href + '" class="book">';
                                     html += '<p>' + val_course.name + '  </p>';
                                     html += '</a>';
                                     html += '</div>';
@@ -84,6 +149,8 @@
                 });
             }
         });
+
+        var link_data = '';
 
         $("#myModal").on('show.bs.modal', function(e) {
            // e.preventDefault();
@@ -99,10 +166,25 @@
             $("#create_group").prop('disabled', false);
             $("#create_group").html('<i class="fa fa-users"></i> ลงทะเบียนเรียนกลุ่ม');
 
-            $(".modal-body").html('Loading...');
+            $("#myModal .modal-body").html('Loading...');
 
             $(this).find('.modal-body').load(link.attr('href'));
         })
+
+
+        $("#myModal2").on('show.bs.modal', function(e) {
+           // e.preventDefault();
+            link_data = $(e.relatedTarget);
+            
+        })
+
+
+
+        $('#myModal2').on('hidden.bs.modal', function () {
+            $('#myModal').modal('show');
+            $("#myModal").find('.modal-body').load(link_data.attr('href'));
+        });
+
     </script>
 </body>
 
