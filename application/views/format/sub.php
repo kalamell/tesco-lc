@@ -64,7 +64,7 @@
                             var href = valdep.course.length == 0 ? '#' : '<?php echo site_url('format/id/'. $this->uri->segment(3). '/'. $this->uri->segment(4));?>/' + valdep.id;
                             var html =  '<div class="col-md-2  col-sm-3  col-xs-4 box2">';
                                 html += '<a href="' + href + '" class="box" style="background-color: ' + color + '">';
-                                html +=  '<img src="' + valdep.cover + '" class="img-responsive"/>';
+                                html +=  '<img src="' + getCover(valdep.cover) + '" class="img-responsive"/>';
                                 html += '<p>' + valdep.title + ' <br>( ' + valdep.course.length + ' ) </p>';
                                 html += '</a>';
                                 html += '</div>';
@@ -77,6 +77,17 @@
                 });
             }
         });
+
+
+        function getCover(path) {
+            <?php if ($this->config->item('version') == '3.5'):?>
+                var file_path = path.replace("<?php echo $this->config->item('api');?>/", "<?php echo $this->config->item('path');?>/");
+                return file_path;
+            <?php else:?>
+                return path;
+            <?php endif;?>
+
+        }
 
     </script>
 </body>

@@ -101,9 +101,8 @@ class Auth extends CI_Controller
                 'fullname' => $this->input->post('fullname'),
                 'name' => $this->input->post('firstname').' '.$this->input->post('lastname'),
                 'token' => $this->input->post('token')
-            ));
-            
-        }
+            ));            
+        } 
     }
 
     function logout()

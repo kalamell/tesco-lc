@@ -43,7 +43,7 @@
                 $.each(obj.function, function(key, val) {
                     var html =  '<div class="col-md-2 col-sm-3 col-xs-4 box2">';
                         html += '<a href="<?php echo site_url('format/id/'.$this->uri->segment(3));?>/' + val.id + '" class="box" style="background-color: ' + val.color + '">';
-                        html +=  '<img src="' + val.cover + '" class="img-responsive"/>';
+                        html +=  '<img src="' + getCover(val.cover) + '" class="img-responsive"/>';
                         html += '<p>' + val.title + ' <br>( ' + val.department.length + ' )</p>';
                         html += '</a>';
                         html += '</div>';
@@ -60,6 +60,17 @@
         $("a.btn-back").on('click', function() {
             top.location.href = '<?php echo site_url();?>';
         })
+
+
+        function getCover(path) {
+            <?php if ($this->config->item('version') == '3.5'):?>
+                var file_path = path.replace("<?php echo $this->config->item('api');?>/", "<?php echo $this->config->item('path');?>/");
+                return file_path;
+            <?php else:?>
+                return path;
+            <?php endif;?>
+
+        }
 
     </script>
 </body>

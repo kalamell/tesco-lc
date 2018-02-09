@@ -650,7 +650,11 @@
                             'lastname': res.lastname,
                             'fullname': res.firstname_thai + ' ' + res.lastname_thai,
                             'token': res.token
-                        }, function() {
+                        }, function(err) {
+
+                            console.log(err);
+
+                            console.log(res);
 
                             window.localStorage.setItem('token', JSON.stringify(res.token));
                             window.localStorage.setItem('data', JSON.stringify(res.data));

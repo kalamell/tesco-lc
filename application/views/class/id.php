@@ -261,7 +261,8 @@
                                                     type: val_course.type,
                                                     doc_id: v.file[k2].id,
                                                     title: val_course.document[k].title + '<br><small>' + v2.title + '</span>',
-                                                    file: v2.file,
+                                                    //file: v2.file,
+                                                    file: getCover(v2.file),
                                                     page: 1,
                                                     read: 0,
                                                     is_finished: val_course.is_finished
@@ -608,6 +609,7 @@
         
 
     function getDocument(documents, index, indexfile ) {
+
          if(index === undefined) {
               index = 0;
            }
@@ -993,6 +995,16 @@
 
     }
 
+    function getCover(path) {
+        <?php if ($this->config->item('version') == '3.5'):?>
+            var file_path = path.replace("<?php echo $this->config->item('api');?>/", "<?php echo $this->config->item('path');?>/");
+            return file_path;
+        <?php else:?>
+            return path;
+        <?php endif;?>
+
+    }
+
 
 //http://localhost/tesco-lc/index.php/classroom/id/2/3/3/267/208621
     
@@ -1061,4 +1073,7 @@
                 console.log(textToDisplay);
             }
         })(jQuery);
+
+
+        
     </script>
