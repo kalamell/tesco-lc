@@ -104,6 +104,7 @@
                         $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
                         top.location.href = '<?php echo site_url('classroom/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5).'/'.$this->uri->segment(6));?>/' + res.class_id;
                     }, 1000);
+                    
 
 
                     console.log(res);

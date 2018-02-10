@@ -134,9 +134,14 @@
                             if (valdep.id == <?php echo $this->uri->segment(5);?>) {
                                 $("li.active").text(valdep.title);                                
                                 $.each(valdep.course, function(key_course, val_course) {
+                                    console.log(val_course);
+                                    
                                     var href = '<?php echo site_url('course');?>/data/' + obj.id + '/' + val.id + '/' + valdep.id + '/' + val_course.id;
                                     var html =  '<div class="col-md-2 col-sm-3  col-xs-6 box2" id="c' + val_course.id +'">';
+
                                     var target = "<?php echo $this->uri->segment(4) == '65' ? '#myModal2': '#myModal';?>";
+
+
                                     html += '<a data-toggle="modal" data-remote="false" data-target="' + target + '" href="' + href + '" class="book">';
                                     html += '<p>' + val_course.name + '  </p>';
                                     html += '</a>';

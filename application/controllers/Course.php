@@ -12,5 +12,10 @@ class Course extends Base {
    {
        $this->load->view('course/detail');
    }
+
+   public function annual($course_id)
+   {
+   	  $this->render('course/form_email_link');
+   }
     
 }
