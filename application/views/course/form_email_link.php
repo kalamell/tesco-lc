@@ -59,6 +59,9 @@
         var users_group = [user_id];
         var course_id = '<?php echo $this->uri->segment(3);?>';
         var class_id = '';
+        var survey_id = '';
+        var body = '';
+        var msg = '';
         
         $(function() {
             setTimeout(function() {
@@ -90,7 +93,9 @@
                         } 
                     } 
 
-                    top.location.href = '<?php echo site_url('classroom/annual');?>/'+ course_id + '/' + class_id;
+                    saveSurvey(course_id, class_id, survey_id);
+
+                    //top.location.href = '<?php echo site_url('classroom/annual');?>/'+ course_id + '/' + class_id;
 
                     
                 }
@@ -116,7 +121,9 @@
                     $(".transfer").hide();
                     class_id = res.class_id;
                     if (res.is_survey) {
-                        var body = res.survey_data[0].question;
+                        survey_id = res.survey_data[0].id;
+                        body = res.survey_data[0].question;
+
                         $("p.msg-survey").html(body);
                         $("#myModal2").modal('show');
 
@@ -132,6 +139,44 @@
 
                 } 
             })
+        }
+
+        function saveSurvey(course_id, class_id, survey_id)
+        {
+            //https://tescolotuslc.com/learningcenter/api/log
+            var text = '';
+            var learn = $("input[name=learn]:checked").val();
+
+            if (learn == 'N') {
+                text = 'N (' + $("textarea").val();
+            } else {
+                text = 'Y';
+            }
+
+            var data_val = {
+                user_id: "<?php echo $this->session->userdata('id');?>",
+                course_id: course_id,
+                survey_id: survey_id,
+                answer_data: [ { id: survey_id, answer: body, text: text}]
+
+            }
+            $.ajax({
+                url: '<?php echo $this->config->item('api');?>/api/log',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: 'POST',
+                data: {
+                    token: token,
+                    action: 'complete',
+                    module: 'decoration_survey',
+                    data: JSON.stringify(data_val),
+                },
+                success: function(res) {
+                    top.location.href = '<?php echo site_url('classroom/annual');?>/'+ course_id + '/' + class_id;
+
+                } 
+            });
         }
 
         /*
