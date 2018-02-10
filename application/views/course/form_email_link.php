@@ -127,6 +127,8 @@
                         $("p.msg-survey").html(body);
                         $("#myModal2").modal('show');
 
+                    } else {
+                        top.location.href = '<?php echo site_url();?>';
                     }
 
 
@@ -157,7 +159,7 @@
                 user_id: "<?php echo $this->session->userdata('id');?>",
                 course_id: course_id,
                 survey_id: survey_id,
-                answer_data: [ { id: survey_id, answer: body, text: text}]
+                answer_data: []
 
             }
             $.ajax({

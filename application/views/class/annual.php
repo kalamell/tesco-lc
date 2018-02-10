@@ -14,24 +14,7 @@
         <div id="footer" style=''>
             <div class='container'>
 
-                <div class="row" style="" id="center-menu">
-                    <div class='col-md-6 col-xs-6' style="text-align: center;">
-                        <button class='btn btn-default pull-left' style="font-size: 14px; margin-right: 10px" id="document-prev"><i class='fa fa-chevron-left'></i> <span>หน้าก่อนหน้า</span></button> 
-
-                        <button class='btn btn-default pull-left' style="font-size: 14px;" id="document-next"> <span>หน้าถัดไป</span> <i class='fa fa-chevron-right'></i></button> 
-                    </div>
-
-
-                    <div class='col-md-6 col-xs-6'>
-
-                        <div class='' style="flex-direction: column; width: 100%; text-align: right;">
-                            <span style='font-size: 14px; color: #fff;'>หน้าที่ : <span style='font-size: 14px; color: #fff;' class="page_num"></span> / <span style='font-size: 14px; color: #fff;' class="page_count"></span></span>
-                        </div>
-
-
-                    </div>
-                    
-                </div>
+                
 
 
                 <div class='row' style="margin-top: 10px;">
@@ -41,9 +24,6 @@
         
                     <div class='col-md-4 col-xs-6' id="right-menu">
                     <button class='btn btn-default' style="font-size: 14px; background: grey;    color: #fff;    border: 1px solid #6b6b6b;" id="gotohome"><i class='fa fa-home'></i> <span>หน้าหลัก</span>  </button>  
-                        <button class='btn btn-default' style="font-size: 14px; margin-right: 10px; background: grey;
-    color: #fff;
-    border: 1px solid #6b6b6b;" id="documents"><i class='fa fa-list-ul'></i> <span>สารบัญ </span> </button>
                         
                     </div>
                 </div>
@@ -184,6 +164,15 @@
 
     $(function() {
         getClass();
+
+        setTimeout(function() {
+            checkDocument(0);
+        }, 1000);
+
+
+    $("#gotohome").on('click', function() {
+        top.location.href = '<?php echo site_url();?>';
+    });
     })
 
     function getClass() {
@@ -199,11 +188,65 @@
             },
             success: function(res) {
                 if (res.status) {
-                    
+                    var i = 0;
+                    $.each(res.data.document, function(k, v) {
+                        $.each(v.file, function(k2, v2) {
+                            data_course.push({
+                                k: i,
+                                type: res.data.type,
+                                doc_id: v.file[k2].id,
+                                title: res.data.document[k].title + '<br><small>' + v2.title + '</span>',
+                                //file: v2.file,
+                                file: getCover(v2.file),
+                                page: 1,
+                                read: 0,
+                                is_finished: res.data.is_finished
+                            })
+                            i++;
+                        })
+                    });
                 }
             } 
         })
     }
+
+    function checkDocument(index) 
+    {
+        var v = data_course[index];
+        console.log('type :', v.type);
+        var reg = /SCORM/g;
+        if (v.type.match(reg)) {
+            var file = v.file;
+            var file = encodeURI(v.file);
+            var file_scorm = file.replace("<?php echo $this->config->item('api');?>/", "https://www.tescolotuslc.com:88/");
+
+           // www.tescolotusl.com/storage/xxx 
+
+            file_scorm = file;
+
+            $("#scorm").html('<iframe src=" ' + file_scorm +'" id="course-content" allowfullscreen webkitallowfullscreen mozallowfullscreen  frameborder="0" height="100%" width="100%" style=""></iframe>');
+            $("#scorm").show();
+            $("#center-menu").hide();
+           // $("#right-menu").addClass('col-md-offset-4');
+            $(".transfer").hide();
+        }
+
+        
+
+    }
+
+    function getCover(path) {
+        <?php if ($this->config->item('version') == '3.5'):?>
+            var file_path = path.replace("<?php echo $this->config->item('api');?>/", "<?php echo $this->config->item('path');?>/");
+            //return file_path;
+        <?php else:?>
+            //return path;
+        <?php endif;?>
+
+        return path;
+
+    }
+
     
     </script>
 
@@ -244,7 +287,7 @@
             }
             function LMSFinish(finishInput) {
                 displayLog("LMSFinish: " + finishInput);
-                top.location.href = '<?php echo site_url('format/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5));?>';
+                top.location.href = '<?php echo site_url();?>';
                 return true;
             }
             function LMSGetLastError() {
