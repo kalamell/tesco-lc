@@ -1,3 +1,4 @@
 tmp/*
 application/config/database.php
 data
+.DS_Store
