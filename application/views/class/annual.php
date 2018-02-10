@@ -180,6 +180,7 @@
     var token = JSON.parse(window.localStorage.getItem('token'));
 
     //  https://tescolotuslc.com/learningcenter/api/class/get
+    var data_course = [];
 
     $(function() {
         getClass();
@@ -187,7 +188,7 @@
 
     function getClass() {
         $.ajax({
-            url: '<?php echo $this->config->item('api');?>/api/class/get',
+            url: '<?php echo $this->config->item('api');?>/api/course/get',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
@@ -197,7 +198,9 @@
                 course_id: course_id,
             },
             success: function(res) {
-                console.log(res);
+                if (res.status) {
+                    
+                }
             } 
         })
     }

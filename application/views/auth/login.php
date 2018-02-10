@@ -521,10 +521,14 @@
                             window.localStorage.setItem('welcome', JSON.stringify(res.welcome));
                             */
                             setTimeout(function() {
-                                window.top.location.reload();
+                                if (res.link == '') {
+                                    window.top.location.reload();
+                                } else {
+                                    window.top.location.href = res.link;
+                                }
                             }, 1000);
                             
-                        });
+                        }, 'json');
                         
                     }
                     
@@ -650,9 +654,9 @@
                             'lastname': res.lastname,
                             'fullname': res.firstname_thai + ' ' + res.lastname_thai,
                             'token': res.token
-                        }, function(err) {
+                        }, function(res2) {
 
-                            console.log(err);
+                            
 
                             console.log(res);
 
@@ -662,10 +666,16 @@
 
                             window.localStorage.setItem('user', JSON.stringify(data_user));
                             setTimeout(function() {
-                                window.top.location.reload();
+                                if (res.link == '') {
+                                    window.top.location.reload();
+                                } else {
+                                    window.top.location.href = res2.link;
+                                }
+
+                                console.log(res2.link);
                             }, 1000);
                             
-                        });
+                        }, 'json');
                         
                     }
                 }
