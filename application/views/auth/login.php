@@ -573,7 +573,7 @@
                     console.log(res);
                     if (res.status == false) {
                         $("#btn-login").prop('disabled', false);
-                        $("#btn-login").html('เข้าสู่ระบบ');
+                        $("#btn-login").html('เข้าสู่ระบบ / Login');
                         if (res.code == '1001') {
                             /*
                             $("#login-alert").show();
