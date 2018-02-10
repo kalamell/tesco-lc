@@ -1011,69 +1011,31 @@
     </script>
 
 
+    <script src="<?php echo base_url();?>assets/player.js"></script>
     <script type="text/javascript">
-        var API = {};
-        (function ($) {
-            
-            $(document).ready(setupScormApi());
 
-            function setupScormApi() {
-                API.LMSInitialize = LMSInitialize;
-                API.LMSGetValue = LMSGetValue;
-                API.LMSSetValue = LMSSetValue;
-                API.LMSCommit = LMSCommit;
-                API.LMSFinish = LMSFinish;
-                API.LMSGetLastError = LMSGetLastError;
-                API.LMSGetDiagnostic = LMSGetDiagnostic;
-                API.LMSGetErrorString = LMSGetErrorString;
+    var API = new playerAPI12();
 
-               // window.open("<?php echo $this->config->item('api');?>/storage/document/2018/02/09/07/228e/FM%20Wastewater%20Treatment%20(EN%20sub)%20-%20Storyline%20output/story.html", "popupname","resizable,scrollbars,status");
-            }
-            function LMSInitialize(initializeInput) {
-                displayLog("LMSInitialize: " + initializeInput);
-                return true;
-            }
-            function LMSGetValue(varname) {
-                displayLog("LMSGetValue: " + varname);
-                return "";
-            }
-            function LMSSetValue(varname, varvalue) {
-                displayLog("LMSSetValue: " + varname + "=" + varvalue);
-                return "";
-            }
-            function LMSCommit(commitInput) {
-                displayLog("LMSCommit: " + commitInput);
-                return true;
-            }
-            function LMSFinish(finishInput) {
-                displayLog("LMSFinish: " + finishInput);
-                top.location.href = '<?php echo site_url('format/id/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$this->uri->segment(5));?>';
-                return true;
-            }
-            function LMSGetLastError() {
-                displayLog("LMSGetLastError: ");
-                return 0;
-            }
-            function LMSGetDiagnostic(errorCode) {
-                displayLog("LMSGetDiagnostic: " + errorCode);
-                return "";
-            }
-            function LMSGetErrorString(errorCode) {
-                displayLog("LMSGetErrorString: " + errorCode);
-                return "";
-            }
-            function displayLog(textToDisplay){
-                /*
-                var loggerWindow = document.getElementById("logDisplay");
-                var item = document.createElement("div");
-                item.innerText = textToDisplay;
-                loggerWindow.appendChild(item);
-                */
+    setInterval(function() {
+        var mydata = API.data;
+        mydata = JSON.parse(window.localStorage.getItem('scorm-local-default'));
+        if (mydata["cmi.core.lesson_status"] == 'incomplete' ){
+            console.log('xxxx');
+        } else {
 
-                console.log(textToDisplay);
-            }
-        })(jQuery);
+            $("#scorm").hide();
+            $("#scorm").html("");
 
+            data_course[step_documents].page = 1;
+            data_course[step_documents].read = 1;
+            checkClassSuccess();
 
+            console.log("DATA : ", mydata["cmi.core.lesson_status"])
+
+            console.log(step_documents);
+
+            return;
+        }
+    }, 1000);
         
     </script>

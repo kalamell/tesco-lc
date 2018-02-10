@@ -28,6 +28,8 @@
         </div>
     </div>
 
+
+
     <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js></script>
     <script>var b_url = '<?php echo site_url();?>';</script>
@@ -43,6 +45,8 @@
                 $.each(obj.function, function(key, val) {
                     var html =  '<div class="col-md-2 col-sm-3 col-xs-4 box2">';
                         html += '<a href="<?php echo site_url('format/id/'.$this->uri->segment(3));?>/' + val.id + '" class="box" style="background-color: ' + val.color + '">';
+                        console.log(val.cover);
+                        
                         html +=  '<img src="' + getCover(val.cover) + '" class="img-responsive"/>';
                         html += '<p>' + val.title + ' <br>( ' + val.department.length + ' )</p>';
                         html += '</a>';
