@@ -8,6 +8,9 @@ class Classroom extends Base {
         $this->render('class/id');
     }
 
-  
+  	public function annual($class_id)
+  	{
+  		$this->render('class/annual');
+  	}
     
 }

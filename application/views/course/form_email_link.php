@@ -40,7 +40,7 @@
             </div>
             <div class="modal-footer">
                 
-                <button type="button" style="width: 200px;" class="btn btn-success" id="save_group2"><i class="fa fa-floppy-o"></i> บันทึก</button>
+                <button type="button" style="width: 200px;" class="btn btn-success" id="save_group2"><i class="fa fa-floppy-o"></i> เข้าสู่บทเรียน</button>
             </div>
             </div>
         </div>
@@ -58,9 +58,45 @@
         var token = JSON.parse(window.localStorage.getItem('token'));
         var users_group = [user_id];
         var course_id = '<?php echo $this->uri->segment(3);?>';
+        var class_id = '';
         
         $(function() {
-            createClass();
+            setTimeout(function() {
+                createClass();
+            }, 1000);
+
+            $("input[name=learn]").on('click', function() {
+                var val = $(this).val();
+                if (val == 'N') {
+                    $("#msg").show();
+                } else {
+                    $("#msg").hide();
+                }
+            });
+
+
+            $("#save_group2").on('click', function() {
+                var chk = $("input[name=learn]:checked").size();
+                if (chk == 0) {
+                    alert('กรุณาเลือก choice / Please choose choice');
+                } else {
+
+                    var learn = $("input[name=learn]:checked").val();
+
+                    if (learn == 'N') {
+                        if ($("textarea[name=msg]").val() == '') {
+                            $("textarea[name=msg]").focus();
+                            return;
+                        } 
+                    } 
+
+                    top.location.href = '<?php echo site_url('classroom/annual');?>/'+ course_id + '/' + class_id;
+
+                    
+                }
+
+            })
+
         })
 
         function createClass() {
@@ -77,13 +113,16 @@
                     student_id_list: users_group
                 },
                 success: function(res) {
-                    console.log(res.is_survey);
+                    $(".transfer").hide();
+                    class_id = res.class_id;
                     if (res.is_survey) {
                         var body = res.survey_data[0].question;
                         $("p.msg-survey").html(body);
                         $("#myModal2").modal('show');
 
                     }
+
+
                     /*$("#save_group").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป');   
                     setTimeout(function() {
                         $("#create_single").html('สร้างหลักสูตรเรียบร้อย กำลังนำทางท่านไป'); 
