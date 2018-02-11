@@ -21,14 +21,14 @@
                 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="learn" value="Y"> ใช่ / Yes
+                        <input type="radio" name="learn" value="Y"> ปฏิบัติตาม / Yes
                     </label>
                     
                 </div>
 
                 <div class="radio">
                     <label>
-                        <input type="radio" name="learn" value="N"> ไม่ใช่ / No
+                        <input type="radio" name="learn" value="N"> ไม่ได้ปฏิบัติตาม / No
                     </label>
                 </div>
 
@@ -65,7 +65,7 @@
         
         $(function() {
             setTimeout(function() {
-                createClass();
+                checkAnnual();
             }, 1000);
 
             $("input[name=learn]").on('click', function() {
@@ -104,6 +104,33 @@
 
         })
 
+        function checkAnnual()
+        {
+            //https://tescolotuslc.com/learningcenter/api/course/checkAnnualUser
+            $.ajax({
+                url: '<?php echo $this->config->item('api');?>/api/course/checkAnnualUser',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: 'POST',
+                data: {
+                    token: token,
+                    course_id: course_id,
+                    user_id: user_id,
+                },
+                success: function(res) {
+                    if (res.status == true && res.is_annual_user == true) {
+                        createClass();
+                    } else {
+                        alert('ขออภัย ท่านไม่มีสิทธิ์เข้าเนื้อหาหลักสูตรนี้');
+                        top.location.href = '<?php echo site_url();?>';
+
+                    }
+                } 
+            })
+
+        }
+
         function createClass() {
             $.ajax({
                 url: '<?php echo $this->config->item('api');?>/api/class/create',
@@ -128,7 +155,10 @@
                         $("#myModal2").modal('show');
 
                     } else {
-                        top.location.href = '<?php echo site_url();?>';
+                        //top.location.href = '<?php echo site_url();?>';
+                        top.location.href = '<?php echo site_url('classroom/annual');?>/'+ course_id + '/' + class_id;
+
+                        //console.log(class_id);
                     }
 
 
