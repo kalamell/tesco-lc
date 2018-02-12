@@ -255,4 +255,48 @@ function playerAPI2004() {
         console.log('GetDiagnostic');
         return 'true';
     };
+
+    this.store = function (value) {
+        var k = 'scorm-local-' + (that.sco || 'default'),
+                r = null;
+
+        if (typeof value == 'undefined') {
+            try {
+                r = JSON.parse(localStorage.getItem(k));
+            } finally {
+            }
+
+            if (!r || {}.toString.call(r) != '[object Object]' || r._flush ||
+                    r._expireTime === 0)
+                return {};
+
+            if (r._expireTime !== -1 &&
+                    that.time() >= (r._expireTime || Number.POSITIVE_INIFINITY))
+                return {};
+
+            return r;
+        } else if (value === false) {
+            return localStorage.removeItem(k);
+        }
+        
+        console.log(value);
+
+        //  0 always expire
+        // -1 never expire
+        // or time to expire
+        value._expireTime = (function () {
+            switch (true) {
+                case (that.opts.persistFor > 0):
+                    return that.time(that.opts.persistFor) + 1;
+                case (that.opts.persistFor < 0):
+                    return -1;
+                default:
+                    return 0;
+            }
+        })();
+
+        localStorage.setItem(k, JSON.stringify(value));
+        return value;
+    }
+    
 }

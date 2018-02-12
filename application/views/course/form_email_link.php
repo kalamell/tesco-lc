@@ -8,11 +8,11 @@
     </div>
 
 
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-window-close"></i></button>
+                
                 <h4 class="modal-title" id="myModalLabel">คำอธิบาย / Description</h4>
             </div>
             <div class="modal-body">
@@ -33,14 +33,16 @@
                 </div>
 
                 <div class="form-group" id="msg" style="display: none;">
-                    <p>หากตอบไม่ใช่ จงอธิบาย</p>
+                    <p>
+() หากท่านตอบว่า "ไม่ได้ปฏิบัติตาม" โปรดกรอกรายละเอียดการละเมิดต่อจรรยาบรรณในการประกอบธุรกิจของท่าน / If your answer is "No" please provided details
+</p>
                     <textarea name="msg" class="form-control" rows="5"></textarea>
                 </div>
 
             </div>
             <div class="modal-footer">
                 
-                <button type="button" style="width: 200px;" class="btn btn-success" id="save_group2"><i class="fa fa-floppy-o"></i> เข้าสู่บทเรียน</button>
+                <button type="button" style="width: 200px;" class="btn btn-success" id="save_group2"><i class="fa fa-floppy-o"></i> เข้าสู่บทเรียน / Submit</button>
             </div>
             </div>
         </div>
@@ -65,7 +67,8 @@
         
         $(function() {
             setTimeout(function() {
-                checkAnnual();
+                //checkAnnual();
+                createClass();
             }, 1000);
 
             $("input[name=learn]").on('click', function() {

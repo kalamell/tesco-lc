@@ -224,6 +224,12 @@
 
             file_scorm = file;
 
+            if (v.type == 'SCORM 1.2') {
+                getScorm('1.2');
+            } else {
+                getScorm('2004');
+            }
+
             $("#scorm").html('<iframe src=" ' + file_scorm +'" id="course-content" allowfullscreen webkitallowfullscreen mozallowfullscreen  frameborder="0" height="100%" width="100%" style=""></iframe>');
             $("#scorm").show();
             $("#center-menu").hide();
@@ -254,45 +260,51 @@
     <script src="<?php echo base_url();?>assets/player.js"></script>
     <script type="text/javascript">
 
-    var API = new playerAPI12();
-    var sendData = false;
+    function getScorm(version) {
+        if (version == '1.2') {
+            var API = new playerAPI12();
+            var sendData = false;
 
-    setInterval(function() {
+            setInterval(function() {
 
 
 
-        if (API.LMSGetValue('cmi.core.lesson_status') == 'passed') {
-            if (!sendData) {
-                var token =  JSON.parse(window.localStorage.getItem('token'));
+                if (API.LMSGetValue('cmi.core.lesson_status') == 'passed') {
+                    if (!sendData) {
+                        var token =  JSON.parse(window.localStorage.getItem('token'));
 
-                sendData = true;
+                        sendData = true;
 
-                var data2 = {
-                    class_id: <?php echo $this->uri->segment(4);?>,
-                    course_id: <?php echo $this->uri->segment(3);?>,
-                    scorm_data: "",
+                        var data2 = {
+                            class_id: <?php echo $this->uri->segment(4);?>,
+                            course_id: <?php echo $this->uri->segment(3);?>,
+                            scorm_data: "",
+                        }
+
+                        $.ajax({
+                            url: '<?php echo $this->config->item('api');?>/api/log',
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            method: 'POST',
+                            data: {
+                                "token": token,
+                                "action": 'complete',
+                                "module": 'class',
+                                "data": JSON.stringify(data2),
+                            },
+                            success: function(res) {
+                                window.localStorage.removeItem('scorm-local-default');
+                            } 
+                        })
+                    }
+
                 }
-
-                $.ajax({
-                    url: '<?php echo $this->config->item('api');?>/api/log',
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    method: 'POST',
-                    data: {
-                        "token": token,
-                        "action": 'complete',
-                        "module": 'class',
-                        "data": JSON.stringify(data2),
-                    },
-                    success: function(res) {
-                        window.localStorage.removeItem('scorm-local-default');
-                    } 
-                })
-            }
+            }, 1000);
+        } else {
 
         }
-    }, 1000);
+    }
 
         
     </script> 
