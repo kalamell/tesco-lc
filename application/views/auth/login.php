@@ -128,15 +128,15 @@
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
                             <div class="col-sm-6 col-xs-6">
-                                <button id="btn-refresh" type="button" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 20px; padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข / Change </button>
+                                <button id="btn-refresh" type="button" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 1em padding-top: 10px; padding-bottom: 10px;">เปลี่ยนตัวเลข <br>/ Change </button>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <button id="btn-login2" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="padding-top: 10px; padding-bottom: 10px;">ส่ง OTP / Request OTP </button>
+                                <button id="btn-login2" type="submit" class="col-sm-12 col-xs-12 btn btn-success" style="font-size: 1em;padding-top: 10px; padding-bottom: 10px;">ส่ง OTP <br>/ Request OTP </button>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-12 control">
-                                <div><a href="#" class='lnk-login' style="display: block; text-align: center; font-size: 20px;">
+                                <div><a href="#" class='lnk-login' style="display: block; text-align: center; font-size: 1em">
                                             กลับไปเข้าระบบใหม่ / Login
                                         </a></div>
                             </div>
@@ -191,6 +191,19 @@
                                 <li>รหัสผ่านต้องมีความยาวต่ำสุด 8 ตัวอักษร และสูงสุด 18 ตัวอักษร</li>
                                 <li>รหัสผ่านต้องไม่ซ้ำกับรหัสผ่านล่าสุด 3 ครั้งสุดท้าย</li>
                             </ul>
+
+                            <h4>Password Policy</h4>
+                            <ul>
+                            <li>The password recommend to be  8 characters.   </li>
+                            <li>The password must using at least 3 of the 4 types
+                                <ul>
+                                    <li>An Upper and Lower case alpha</li>
+                                    <li>A Number</li>
+                                    <li>A Special character e.g. !?*&</li>
+                                </ul>
+                            </li>
+                            <li>The password history must be set to remember at least 3 passwords to prevent frequent password re-use.
+
                         </div>
                         
                     </form>
