@@ -170,9 +170,9 @@
         }, 1000);
 
 
-    $("#gotohome").on('click', function() {
-        top.location.href = '<?php echo site_url();?>';
-    });
+        $("#gotohome").on('click', function() {
+            top.location.href = '<?php echo site_url();?>';
+        });
     })
 
     function getClass() {

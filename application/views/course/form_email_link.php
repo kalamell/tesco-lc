@@ -67,8 +67,8 @@
         
         $(function() {
             setTimeout(function() {
-                //checkAnnual();
-                createClass();
+                checkAnnual();
+                //createClass();
             }, 1000);
 
             $("input[name=learn]").on('click', function() {
