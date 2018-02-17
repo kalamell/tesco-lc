@@ -2,3 +2,7 @@ tmp
 application/config/database.php
 data
 user-isobar.csv
+.env
+1database.php
+database.php
+server.php
