@@ -1,8 +1,10 @@
 
 	<div class='container'>
+        
         <div class='row' style="margin-bottom: 50px;">
-            <div class="col-md-4 col-md-offset-4 col-sm-12">
-                <img src="<?php echo base_url('assets/images/testing.png');?>" class='img-responsive' alt="" style='margin: 0 auto;'>
+            <div class="transfer col-md-4 col-md-offset-4 col-sm-12">
+                <img src="<?php echo base_url();?>assets/images/loading_lotus.gif" style='margin: 0 auto; display: block;'>
+            <p style="font-size: 16px; color: #fff; text-align: center;">กำลังโหลดข้อมูล...</p>
             </div>
 
         </div>
@@ -83,8 +85,11 @@
                                 $("#testing").append(html);
                             });
                         }
+
+                        $(".transfer").hide();
                     }
                 })
+                
             } else {
                 $("#testing").html('');
                 $.each(testing.testing, function(key, val) {
@@ -92,6 +97,8 @@
                     var html = '<a href="' + href +'"  data-toggle="modal" data-remote="false" data-target="#myModal" class="list-group-item"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;' + val.title + '</a>';
                     $("#testing").append(html);
                 });
+
+                $(".transfer").hide();
             }
 
         }
