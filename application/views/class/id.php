@@ -1020,10 +1020,14 @@
         <?php if ($this->config->item('version') == '3.5'):?>
             var file_path = path.replace("<?php echo $this->config->item('api');?>/", "<?php echo $this->config->item('path');?>/");
 
-            return file_path;
+            //return file_path;
         <?php else:?>
-            return path;
+            //return path;
         <?php endif;?>
+
+        path = path.replace("<?php echo $this->config->item('api');?>/", "https://tescolotuslc.com/");
+        return path;
+
 
     }
 

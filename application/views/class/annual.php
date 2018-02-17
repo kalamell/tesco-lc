@@ -23,7 +23,7 @@
                     </div>
         
                     <div class='col-md-4 col-xs-6' id="right-menu">
-                    <button class='btn btn-default' style="font-size: 14px; background: grey;    color: #fff;    border: 1px solid #6b6b6b;" id="gotohome"><i class='fa fa-home'></i> <span>หน้าหลัก</span>  </button>  
+                    <button class='btn btn-default' style="font-size: 14px; background: grey;    color: #fff;    border: 1px solid #6b6b6b;" id="gotohome"><i class='fa fa-home'></i> <span>หน้าหลัก / Home</span>  </button>  
                         
                     </div>
                 </div>
@@ -205,6 +205,8 @@
                             i++;
                         })
                     });
+                } else {
+                    top.location.href = '<?php echo site_url();?>';
                 }
             } 
         })
@@ -248,12 +250,44 @@
         <?php else:?>
             //return path;
         <?php endif;?>
-
+        path = path.replace("<?php echo $this->config->item('api');?>/", "https://tescolotuslc.com/");
         return path;
 
     }
 
     
+    function saveComplete() {
+        console.log('save complete');
+        var token =  JSON.parse(window.localStorage.getItem('token'));
+
+
+
+        var data2 = {
+            class_id: <?php echo $this->uri->segment(4);?>,
+            course_id: <?php echo $this->uri->segment(3);?>,
+            scorm_data: "",
+        }
+
+        $.ajax({
+            url: '<?php echo $this->config->item('api');?>/api/log',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: 'POST',
+            data: {
+                "token": token,
+                "action": 'complete',
+                "module": 'class',
+                "data": JSON.stringify(data2),
+            },
+            success: function(res) {
+                console.log("SENED COMPLETE");
+
+                window.localStorage.removeItem('scorm-local-default');
+            } 
+        })
+    }
+
     </script>
 
 
@@ -302,7 +336,51 @@
                 }
             }, 1000);
         } else {
+            var data_s =  JSON.parse(window.localStorage.getItem('scorm-local-default'));
 
+            console.log('data s :', data_s);
+
+            var API2004 = new playerAPI2004();
+            var sendData = false;
+            setInterval(function() {
+                console.log('data >>>>', API2004.GetValue('cmi.completion_status'), ' - ', API2004.GetValue('cmi.success_status'));
+
+                if (API2004.GetValue('cmi.completion_status') == 'completed') {
+                    if (!sendData) {
+                        var token =  JSON.parse(window.localStorage.getItem('token'));
+
+                        sendData = true;
+
+                        var data2 = {
+                            class_id: <?php echo $this->uri->segment(4);?>,
+                            course_id: <?php echo $this->uri->segment(3);?>,
+                            scorm_data: "",
+                        }
+
+                        $.ajax({
+                            url: '<?php echo $this->config->item('api');?>/api/log',
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            method: 'POST',
+                            data: {
+                                "token": token,
+                                "action": 'complete',
+                                "module": 'class',
+                                "data": JSON.stringify(data2),
+                            },
+                            success: function(res) {
+                                console.log("SENED COMPLETE");
+
+                                window.localStorage.removeItem('scorm-local-default');
+                            } 
+                        })
+                    }
+
+                }
+
+
+            }, 1000);
         }
     }
 

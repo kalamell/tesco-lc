@@ -33,9 +33,7 @@
                 </div>
 
                 <div class="form-group" id="msg" style="display: none;">
-                    <p>
-() หากท่านตอบว่า "ไม่ได้ปฏิบัติตาม" โปรดกรอกรายละเอียดการละเมิดต่อจรรยาบรรณในการประกอบธุรกิจของท่าน / If your answer is "No" please provided details
-</p>
+                    
                     <textarea name="msg" class="form-control" rows="5"></textarea>
                 </div>
 
@@ -67,8 +65,8 @@
         
         $(function() {
             setTimeout(function() {
-                checkAnnual();
-                //createClass();
+                //checkAnnual();
+                createClass();
             }, 1000);
 
             $("input[name=learn]").on('click', function() {
