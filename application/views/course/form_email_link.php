@@ -65,8 +65,8 @@
         
         $(function() {
             setTimeout(function() {
-                //checkAnnual();
-                createClass();
+                checkAnnual();
+                //createClass();
             }, 1000);
 
             $("input[name=learn]").on('click', function() {
@@ -89,6 +89,7 @@
 
                     if (learn == 'N') {
                         if ($("textarea[name=msg]").val() == '') {
+                            alert('โปรดกรอกรายละเอียด / Please provided details');
                             $("textarea[name=msg]").focus();
                             return;
                         } 
