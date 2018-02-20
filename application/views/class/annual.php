@@ -345,7 +345,7 @@
             setInterval(function() {
                 console.log('data >>>>', API2004.GetValue('cmi.completion_status'), ' - ', API2004.GetValue('cmi.success_status'));
 
-                if (API2004.GetValue('cmi.completion_status') == 'completed') {
+                if (API2004.GetValue('cmi.completion_status') == 'completed' || API2004.GetValue('cmi.completion_status') == 'passed') {
                     if (!sendData) {
                         var token =  JSON.parse(window.localStorage.getItem('token'));
 
