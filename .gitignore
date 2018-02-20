@@ -6,3 +6,6 @@ user-isobar.csv
 1database.php
 database.php
 server.php
+assets/.env
+assets/database.php
+assets/app.php
