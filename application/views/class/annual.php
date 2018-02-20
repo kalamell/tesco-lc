@@ -303,7 +303,7 @@
 
 
 
-                if (API.LMSGetValue('cmi.core.lesson_status') == 'passed') {
+                if (API.LMSGetValue('cmi.core.lesson_status') == 'passed' || API.LMSGetValue('cmi.core.lesson_status') == 'completed') {
                     if (!sendData) {
                         var token =  JSON.parse(window.localStorage.getItem('token'));
 
