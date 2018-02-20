@@ -141,8 +141,13 @@
            console.log(val);
             html +='<li>';
             html +='<label id="choice' + inx + key + '" style="cursor: pointer; padding-bottom: 5px;"><input type="radio" data-question="' + question_id +'" data-type="abcd" data-weight="' + weight +'" id="choice'+inx + key +'" name="choice' + inx + '" value="' + val.is_correct + '"/> ' + choice[key] + val.text;
+<<<<<<< HEAD
             html +='</label>';
             //html +=' <<< ' + val.is_correct+'</label>';
+=======
+           html +='</label>';
+//            html +=' <<< ' + val.is_correct+'</label>';
+>>>>>>> a4c09e9a90d3de718d562dd66bf4fbb218662a03
             html +='</li>';
         });
         html +='</ol>';
