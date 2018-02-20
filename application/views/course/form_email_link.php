@@ -33,9 +33,7 @@
                 </div>
 
                 <div class="form-group" id="msg" style="display: none;">
-                    <p>
-() หากท่านตอบว่า "ไม่ได้ปฏิบัติตาม" โปรดกรอกรายละเอียดการละเมิดต่อจรรยาบรรณในการประกอบธุรกิจของท่าน / If your answer is "No" please provided details
-</p>
+                    
                     <textarea name="msg" class="form-control" rows="5"></textarea>
                 </div>
 
@@ -91,6 +89,7 @@
 
                     if (learn == 'N') {
                         if ($("textarea[name=msg]").val() == '') {
+                            alert('โปรดกรอกรายละเอียด / Please provided details');
                             $("textarea[name=msg]").focus();
                             return;
                         } 

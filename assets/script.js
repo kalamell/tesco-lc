@@ -31,7 +31,7 @@ function checkUser()
 		},
 		success: function(res) {
 		    if (res.status == false) {
-		    	window.top.location.href  = b_url+'/auth/logout';
+		    	//window.top.location.href  = b_url+'/auth/logout';
 		    }
 		} 
 	})

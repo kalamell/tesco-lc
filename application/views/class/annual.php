@@ -250,7 +250,7 @@
         <?php else:?>
             //return path;
         <?php endif;?>
-
+        path = path.replace("<?php echo $this->config->item('api');?>/", "https://tescolotuslc.com/");
         return path;
 
     }
@@ -376,6 +376,7 @@
                             } 
                         })
                     }
+
 
                 }
 
