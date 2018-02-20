@@ -133,6 +133,7 @@
 
         }
 
+        var qid = '';
         function createClass() {
             $.ajax({
                 url: '<?php echo $this->config->item('api');?>/api/class/create',
@@ -152,6 +153,9 @@
                     if (res.is_survey) {
                         survey_id = res.survey_data[0].id;
                         body = res.survey_data[0].question;
+
+                        qid = res.survey_data[0].id;
+
 
                         $("p.msg-survey").html(body);
                         $("#myModal2").modal('show');
@@ -191,9 +195,13 @@
                 user_id: "<?php echo $this->session->userdata('id');?>",
                 course_id: course_id,
                 survey_id: survey_id,
-                answer_data: []
-
+                answer_data: [{
+                    id: qid,
+                    answer: learn == 'N' ? false : true,
+                    text: $("textarea").val(),
+                }]
             }
+
             $.ajax({
                 url: '<?php echo $this->config->item('api');?>/api/log',
                 headers: {
